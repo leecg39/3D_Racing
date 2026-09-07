@@ -40,9 +40,10 @@ export class InputManager {
   }
   read() {
     return {
+      // Track side = up × forward points left from the driver's view.
       steer:
-        Number(this.keys.has("KeyD") || this.keys.has("ArrowRight")) -
-        Number(this.keys.has("KeyA") || this.keys.has("ArrowLeft")),
+        Number(this.keys.has("KeyA") || this.keys.has("ArrowLeft")) -
+        Number(this.keys.has("KeyD") || this.keys.has("ArrowRight")),
       boost: this.keys.has("Space"),
       stabilize: this.keys.has("ShiftLeft") || this.keys.has("ShiftRight"),
     };

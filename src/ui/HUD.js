@@ -1,6 +1,11 @@
 import { CARS, PARTS, CAMERA_NAMES, CONFIG, timeString } from "../config.js";
 import { ASSETS, atlasStyle } from "../assets.js";
+import { Speedometer, speedometerMarkup } from "./Speedometer.js";
+import "./race-hud.css";
+import { MUSIC_TRACKS, hasAudioOutput, musicEnabled } from "../audio/MusicManager.js";
+import "./music.css";
 const icons = {
+  music: '<path d="M9 18V5l11-2v13M9 8l11-2"/><ellipse cx="6" cy="18" rx="3" ry="2"/><ellipse cx="17" cy="16" rx="3" ry="2"/>',
   arrow: '<path d="M4 12h15m-6-6 6 6-6 6"/>',
   sound:
     '<path d="m11 5-6 4H2v6h3l6 4zM15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/>',
@@ -50,7 +55,7 @@ export class HUD {
         <div class="weather-chip" id="weather-chip">${icon("sun", 18)}<div><b>DRY TRACK</b><span>1랩 · 건조한 노면</span></div></div>
         <div id="countdown" class="countdown" hidden><span>READY TO RACE</span><strong>3</strong><p>직선에서 부스트, 코너에서 안정화</p></div>
         <div id="race-notice" class="race-notice" role="status"></div>
-        <div class="race-bottom"><div class="map-panel"><div class="eyebrow">WORKSHOP CIRCUIT <span>01</span></div><canvas id="minimap" width="240" height="142" aria-label="트랙 위 차량 위치"></canvas></div><div class="driving-help"><span>${key("A")}${key("D")} 주행선</span><span id="boost-key">${key("SPACE")} 부스트</span><span id="stabilize-key">${key("SHIFT")} 안정화</span></div><div class="telemetry"><div class="speed-readout"><span id="speed">0</span><div>KM/H<small>미니카 환산 속도</small></div><span id="motor-status">MOTOR READY</span></div><div class="meter-label"><span>모터 열</span><b id="heat-text">0%</b></div><div class="meter"><span id="heat-meter"></span></div><div class="meter-label stability-label"><span>접지 안정성</span><b id="stability-text">100%</b></div><div class="meter stability"><span id="stability-meter"></span></div></div></div>
+        <div class="race-bottom"><div class="map-panel"><div class="eyebrow">WORKSHOP CIRCUIT <span>01</span></div><canvas id="minimap" width="240" height="142" aria-label="트랙 위 차량 위치"></canvas></div><div class="driving-help"><span>${key("A")}${key("D")} 주행선</span><span id="boost-key">${key("SPACE")} 부스트</span><span id="stabilize-key">${key("SHIFT")} 안정화</span></div><section class="telemetry" aria-label="주행 계기판">${speedometerMarkup()}<div class="telemetry-status"><span id="motor-status">MOTOR READY</span></div><div class="telemetry-meters"><div class="meter-label"><span>모터 열</span><b id="heat-text">0%</b></div><div class="meter"><span id="heat-meter"></span></div><div class="meter-label stability-label"><span>접지 안정성</span><b id="stability-text">100%</b></div><div class="meter stability"><span id="stability-meter"></span></div></div></section></div>
         <div class="replay-controls" id="replay-controls" hidden><span class="replay-label"><i></i> REPLAY</span><span id="replay-time">00:00</span><input id="replay-seek" type="range" min="0" max="100" value="0" step="0.05" aria-label="리플레이 시점"><button data-action="replay-speed" id="replay-speed">1×</button><button data-action="end-replay">결과로 돌아가기 ${icon("arrow", 15)}</button></div>
       </main>
       <section id="pause-screen" class="overlay" hidden><div class="modal pause-modal"><span class="eyebrow">TAKE A BREATHER</span><h2>잠시, 피트 스톱.</h2><p>레이스가 일시정지되었습니다.<br>준비가 되면 이어서 달려보세요.</p><button class="primary" data-action="resume">계속 달리기 ${icon("play", 18)}</button><button class="secondary" data-action="restart">처음부터 다시 경주</button><button class="text-button" data-action="garage">차고로 돌아가기</button><small>${key("ESC")} 또는 ${key("P")} 재개</small></div></section>
@@ -68,9 +73,18 @@ export class HUD {
         )}</nav><div class="asset-sheet"><img id="asset-sheet-image" alt="" src="${ASSETS.lineup.url}"></div><p id="asset-description"></p></dialog>
       <div class="orientation-hint">넓은 화면에서 더 즐겁게.<span>키보드가 있는 PC 브라우저에서 플레이해 주세요.</span></div>
       <div id="toast" role="status"></div>`;
+    document.querySelector("#sound-button").insertAdjacentHTML("beforebegin", `<button class="icon-button music-toggle" id="music-button" data-action="music" aria-label="배경음 끄기" aria-pressed="true">${icon("music", 18)}<span>음악</span></button>`);
+    const soundLabel = document.querySelector("#sound-setting").closest("label").querySelector("span");
+    soundLabel.textContent = "전체 소리";
+    document.querySelector("#volume-setting").closest("label").insertAdjacentHTML("afterend", `
+      <label class="setting-row"><span>배경음 사용<small>차고의 라운지 재즈 · 레이스의 일렉트로닉</small></span><input type="checkbox" id="music-setting"></label>
+      <label class="setting-row"><span>배경음 음량<small>효과음과 따로 조절됩니다.</small></span><input type="range" id="music-volume-setting" min="0" max="1" step="0.01" aria-label="배경음 음량"></label>
+      <div class="music-preview-row"><button class="secondary" data-action="test-music">${icon("music", 16)} 배경음 미리 듣기</button><span id="music-status" role="status">화면을 클릭하면 음악이 시작됩니다.</span></div>
+      <details class="music-credits"><summary>음원 정보 · Kevin MacLeod</summary><ul>${Object.entries(MUSIC_TRACKS).map(([scene, track]) => `<li>${scene === "garage" ? "차고·결과" : "레이스·리플레이"}: <a href="${track.source}" target="_blank" rel="noopener noreferrer">${track.title}</a></li>`).join("")}</ul><p>Music by Kevin MacLeod (incompetech.com). <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.<br>게임용 MP3 변환, 반복 재생 및 음량·페이드 적용.</p></details>`);
     this.refs = Object.fromEntries(
       [...document.querySelectorAll("[id]")].map((el) => [el.id, el]),
     );
+    this.speedometer = new Speedometer(this.refs["speed-gauge"]);
     document.querySelector("#app").addEventListener("click", (event) => {
       const button = event.target.closest(
         "[data-action], [data-car], [data-part], [data-asset]",
@@ -82,7 +96,7 @@ export class HUD {
       if (button.dataset.part) handlers.part(button.dataset.part);
       if (button.dataset.asset) this.showAsset(button.dataset.asset);
     });
-    for (const id of ["quality", "motion", "sound", "volume"])
+    for (const id of ["quality", "motion", "sound", "volume", "music", "music-volume"])
       this.refs[`${id}-setting`].addEventListener("input", () =>
         handlers.settings(id),
       );
@@ -204,7 +218,7 @@ export class HUD {
     );
     this.refs["best-lap"].textContent =
       `BEST LAP ${timeString(Math.min(...player.lapTimes))}`;
-    this.refs.speed.textContent = Math.round(player.speed * 10);
+    this.speedometer.update(player);
     this.refs["heat-text"].textContent = `${Math.round(player.heat)}%`;
     this.refs["heat-meter"].style.width = `${player.heat}%`;
     this.refs["heat-meter"].classList.toggle(
@@ -273,11 +287,11 @@ export class HUD {
       const [x, y] = point((i / 150) * track.length);
       i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
     }
-    ctx.lineWidth = 9;
-    ctx.strokeStyle = "#8d938d44";
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = "#09111bbc";
     ctx.stroke();
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = "#b8bbae";
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "#f0f2f3d9";
     ctx.stroke();
     for (const [i, car] of [...cars].reverse().entries()) {
       const [x, y] = point(car.distance);
@@ -321,11 +335,18 @@ export class HUD {
   }
   syncSettings() {
     const data = this.storage.data;
+    this.refs["speed-gauge"].classList.toggle("reduced-motion", data.reducedMotion);
     this.refs["quality-setting"].value = data.quality;
     this.refs["motion-setting"].checked = data.reducedMotion;
     this.refs["sound-setting"].checked = !data.muted;
     this.refs["volume-setting"].value = data.volume;
-    const silent = data.muted || data.volume === 0;
+    this.refs["music-setting"].checked = !data.musicMuted;
+    this.refs["music-volume-setting"].value = data.musicVolume;
+    const musicOn = musicEnabled(data);
+    this.refs["music-button"].setAttribute("aria-pressed", String(musicOn));
+    this.refs["music-button"].setAttribute("aria-label", musicOn ? "배경음 끄기" : "배경음 켜기");
+    this.refs["music-button"].title = musicOn ? "배경음 끄기" : "배경음 켜기";
+    const silent = !hasAudioOutput(data);
     this.refs["sound-button"].innerHTML = `${icon(silent ? "muted" : "sound")}<span>${silent ? "소리 켜기" : "소리 켜짐"}</span>`;
     this.refs["sound-button"].setAttribute(
       "aria-label",
@@ -341,7 +362,7 @@ export class HUD {
     const data = this.storage.data;
     this.refs["sound-status"].textContent = data.muted
       ? "음소거 상태입니다. ‘소리 확인’을 누르면 소리가 켜집니다."
-      : data.volume === 0
+      : !hasAudioOutput(data)
         ? "음량이 0입니다. 음량을 올리거나 ‘소리 확인’을 눌러 주세요."
         : ({
             locked: "경주 시작 또는 ‘소리 확인’을 누르면 오디오가 시작됩니다.",
@@ -352,6 +373,21 @@ export class HUD {
             unsupported: "이 브라우저는 Web Audio를 지원하지 않습니다.",
             error: "오디오 연결에 실패했습니다. ‘소리 확인’으로 재시도해 주세요.",
           }[status] ?? "오디오 상태를 확인해 주세요.");
+  }
+  setMusicStatus(info) {
+    this.musicStatus = info;
+    if (!this.refs["music-status"]) return;
+    const labels = {
+      locked: "화면을 클릭하면 시작", loading: "음악 준비 중",
+      playing: "재생 중", paused: "일시정지",
+      error: "음악을 불러오지 못했습니다. 미리 듣기로 재시도해 주세요.",
+    };
+    this.refs["music-status"].textContent = `${info.title} · ${labels[info.status] ?? ""}`;
+    this.refs["music-button"].dataset.state = info.status;
+    if (info.status === "locked" && musicEnabled(this.storage.data)) {
+      this.refs["music-button"].setAttribute("aria-label", "배경음 재생");
+      this.refs["music-button"].title = "배경음 재생";
+    }
   }
   openDialog(type) {
     this.dialogReturnFocus = document.activeElement;
@@ -369,8 +405,10 @@ export class HUD {
     this.refs[`${type}-dialog`].showModal();
   }
   closeDialogs() {
-    for (const dialog of document.querySelectorAll("dialog[open]"))
+    const dialogs = document.querySelectorAll("dialog[open]");
+    for (const dialog of dialogs)
       dialog.close();
+    if (dialogs.length) this.handlers.dialogClosed?.();
     this.dialogReturnFocus?.focus();
   }
   showAsset(id) {

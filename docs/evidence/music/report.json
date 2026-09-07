@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "date": "2026-09-07T15:05:23.612Z",
+  "browser": "149.0.7827.201",
+  "checks": [
+    "first garage interaction starts audible licensed lounge music",
+    "race switches tracks, and muting music preserves engine audio",
+    "music preview and volume work independently of zero effects volume; credits are visible",
+    "closing preview returns to silence; resume preserves the playback position",
+    "background focus loss pauses audio and a user resume restores it",
+    "global sound mute and unmute control both audio channels",
+    "the real MP3 loops at its end without creating another audio element",
+    "scene switches reuse audio elements and separate music preferences persist",
+    "music controls fit desktop and narrow layouts",
+    "missing music reports a recoverable error without breaking the race"
+  ],
+  "metrics": {
+    "garageRms": 0.011318792435528727,
+    "musicOnlyRms": 0.0020339876132172583
+  },
+  "errors": []
+}

@@ -1,0 +1,22 @@
+TABLETOP RACERS — Background Music
+
+"Airport Lounge" by Kevin MacLeod (incompetech.com)
+Source: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100806
+ISRC: USUAN1100806
+Used for: garage and race results.
+
+"Go Cart" by Kevin MacLeod (incompetech.com)
+Source: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1300006
+ISRC: USUAN1300006
+Used for: countdown, racing and replays.
+
+Both tracks are licensed under Creative Commons Attribution 4.0 International.
+License: https://creativecommons.org/licenses/by/4.0/
+Licensor's licensing page: https://incompetech.com/music/royalty-free/licenses/
+
+Changes: re-encoded to 128 kbps MP3 / 44.1 kHz for game loading.
+Playback uses looping, volume adjustment, and scene-transition fades.
+No endorsement by the composer is implied.
+
+이 게임은 그란투리스모의 분위기를 참고해 위 곡을 선정했습니다.
+위 음악은 그란투리스모 공식 사운드트랙이 아닙니다.

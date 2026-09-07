@@ -1,0 +1,250 @@
+.race-screen {
+  --dial-accent: #d325ff;
+  --dial-size: 236px;
+  --hud-glass: #0e1420b8;
+  --hud-line: #e8edf72b;
+}
+.race-screen .telemetry {
+  width: var(--dial-size);
+  flex: 0 0 var(--dial-size);
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}
+.speedometer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  color: #eef2f7;
+  font-family: "Barlow", sans-serif;
+  container-type: inline-size;
+  filter: drop-shadow(0 3px 8px #0006);
+}
+.speedometer-dial { display: block; width: 100%; height: 100%; overflow: visible; }
+.dial-glass { fill: #0b101bb8; }
+.dial-rim { fill: none; stroke: #e3e7ec9c; stroke-width: 1.15; }
+.dial-track { fill: none; stroke: #edf2fc16; stroke-width: 10; }
+.dial-progress {
+  fill: none;
+  stroke: var(--dial-accent);
+  stroke-width: 10;
+  transition: stroke-dasharray 80ms linear, stroke 120ms linear;
+  filter: drop-shadow(0 0 3px #d325ff7a);
+}
+.dial-tick { stroke: #f2f3fa6b; stroke-width: 0.75; }
+.dial-tick.major { stroke: #f6f7fcd1; stroke-width: 1.2; }
+.dial-number {
+  fill: #d6dae5;
+  font-size: 8px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+.dial-drive {
+  position: absolute;
+  top: 28%;
+  left: 30%;
+  width: 40%;
+  text-align: center;
+}
+.dial-drive > span {
+  display: block;
+  font-size: 15cqw;
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+}
+.dial-drive > small {
+  display: block;
+  margin-top: 3%;
+  color: #b5beca;
+  font-size: 3.1cqw;
+  letter-spacing: 0.14em;
+}
+.dial-digital {
+  position: absolute;
+  left: 23%;
+  top: 49%;
+  width: 54%;
+  height: 21%;
+  padding: 0 6% 0 4%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7%;
+  background: #dce2dc;
+  color: #101715;
+  border: 1px solid #aeb9b4;
+  border-radius: 1px;
+  box-shadow: inset 0 1px 4px #00180d35, 0 0 0 2px #02080c85;
+}
+.dial-digital #speed {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 22cqw;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  min-width: 1.4em;
+  text-align: center;
+}
+.dial-unit { font-size: 3.5cqw; font-weight: 700; line-height: 1.35; opacity: 0.7; }
+.dial-boost {
+  position: absolute;
+  top: 79%;
+  left: 35%;
+  width: 30%;
+  text-align: center;
+  font-size: 3.4cqw;
+  letter-spacing: 0.18em;
+  color: #9aa1b34d;
+}
+.dial-caption {
+  position: absolute;
+  top: 90%;
+  width: 100%;
+  text-align: center;
+  color: #ccd3ddb3;
+  font-size: 2.7cqw;
+  letter-spacing: 0.13em;
+}
+.speedometer[data-mode="boost"] { --dial-accent: #ed50ff; }
+.speedometer[data-mode="boost"] .dial-boost,
+.speedometer[data-mode="boost"] .dial-drive { color: #f3a0ff; }
+.speedometer[data-mode="boost"] .dial-digital { background: #efdff0; }
+.speedometer[data-mode="hot"], .speedometer[data-mode="impact"] { --dial-accent: #ff784d; }
+.speedometer[data-mode="hot"] .dial-drive small,
+.speedometer[data-mode="impact"] .dial-drive small { color: #ffad89; }
+.speedometer[data-mode="grip"] .dial-drive small { color: #7fddd3; }
+.telemetry-status {
+  min-height: 18px;
+  margin-top: -1px;
+  text-align: center;
+  font: 600 8px "Barlow", sans-serif;
+  letter-spacing: 0.14em;
+  color: #c6cfda;
+  text-shadow: 0 1px 4px #000;
+}
+.telemetry-status .boost { color: #eca0ff; }
+.telemetry-status .danger { color: #ffad89; }
+.telemetry-meters {
+  margin: 3px 20px 0;
+  padding: 10px 12px;
+  border: 1px solid var(--hud-line);
+  border-radius: 3px;
+  background: var(--hud-glass);
+}
+.telemetry-meters .meter-label { font-size: 8px; margin-bottom: 5px; color: #c7cbd6; }
+.telemetry-meters .meter-label b { font-size: 9px; color: #eef1f5; }
+.telemetry-meters .meter { height: 3px; background: #eef3ff1c; }
+.telemetry-meters .meter > span { background: #cf68ef; }
+.telemetry-meters .meter > span.hot { background: #ff784d; }
+.telemetry-meters .stability > span { background: #98c9d9; }
+.telemetry-meters .stability-label { margin-top: 9px; }
+
+/* Compact race overlays echo the reference without covering the racing line. */
+.race-screen .race-metrics {
+  padding: 12px 17px;
+  gap: 20px;
+  background: var(--hud-glass);
+  border-color: var(--hud-line);
+  border-left: 2px solid var(--dial-accent);
+}
+.race-screen .race-metrics > div + div { padding-left: 20px; border-color: var(--hud-line); }
+.race-screen .race-metrics .eyebrow { color: #b8bfce; font-size: 7px; }
+.race-screen .position-metric strong { color: #efbcff; }
+.race-screen .race-metrics strong { font-size: 31px; }
+.race-screen .race-metrics .time-metric strong { font-size: 21px; }
+.race-screen .race-metrics .time-metric small { color: #b5bdca; }
+.race-screen .leaderboard { top: 118px; width: 185px; }
+.race-screen .leader-row { padding: 7px 10px; background: var(--hud-glass); border-color: var(--hud-line); }
+.race-screen .leader-row > span {
+  align-self: stretch;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  margin: -7px 1px -7px -10px;
+  background: #9125b2a6;
+  color: #fff;
+  font-style: italic;
+}
+.race-screen .leader-row.you { border-left: 0; background: #381646d6; }
+.race-screen .leader-row.you > span { background: #c22be9; }
+.race-screen .leader-row.you small { color: #efbcff; }
+.race-screen .weather-chip { background: var(--hud-glass); border-color: var(--hud-line); border-left-width: 1px; }
+.race-screen .map-panel {
+  width: 195px;
+  padding: 8px 0 0;
+  border: 0;
+  background: none;
+  filter: drop-shadow(0 2px 3px #000c);
+}
+.race-screen .map-panel .eyebrow { color: #e2e5ed; font-size: 7px; }
+.race-screen .driving-help { background: var(--hud-glass); border-color: var(--hud-line); color: #d4dae5; }
+.race-screen .driving-help .pressed { color: #efa5ff; }
+.race-screen .replay-controls { bottom: calc(var(--dial-size) + 135px); }
+.race-screen .race-notice { bottom: 128px; max-width: calc(100vw - 530px); }
+.speedometer.reduced-motion .dial-progress { transition: none; }
+
+@media (max-width: 1150px), (max-height: 700px) {
+  .race-screen { --dial-size: 198px; }
+  .race-screen .race-bottom { bottom: 16px; left: 20px; right: 20px; }
+  .telemetry-meters { margin: 0 14px; padding: 7px 10px; }
+  .race-screen .map-panel { width: 164px; }
+  .race-screen .driving-help { font-size: 8px; padding: 8px; gap: 9px; }
+  .race-screen .race-notice { max-width: calc(100vw - 440px); }
+}
+@media (max-height: 580px) and (min-width: 601px) {
+  .race-screen { --dial-size: 166px; }
+  .race-screen .race-bottom { bottom: 10px; right: 16px; }
+  .telemetry-meters { padding: 5px 8px; margin-inline: 9px; }
+  .telemetry-meters .stability-label { margin-top: 5px; }
+  .telemetry-status { font-size: 6px; min-height: 13px; }
+  .race-screen .weather-chip { top: 65px; padding: 7px 9px; }
+  .race-screen .leaderboard { top: 109px; }
+  .race-screen .leader-row { padding-block: 5px; }
+  .race-screen .leader-row > span { margin-block: -5px; }
+  .race-screen .map-panel { width: 145px; }
+}
+@media (max-width: 850px) {
+  .race-screen .driving-help { flex-direction: row; white-space: nowrap; }
+  .race-screen .race-metrics { gap: 12px; padding: 10px 12px; }
+  .race-screen .race-metrics > div + div { padding-left: 12px; }
+  .race-screen .leaderboard { top: 106px; width: 166px; }
+  .race-screen .race-notice { max-width: calc(100vw - 390px); }
+}
+@media (max-width: 600px) {
+  .race-screen { --dial-size: 164px; }
+  .race-screen .race-bottom { bottom: 40px; left: 12px; right: 12px; }
+  .race-screen .map-panel { width: 132px; }
+  .race-screen .race-metrics { gap: 8px; padding: 9px; }
+  .race-screen .race-metrics > div + div { padding-left: 8px; }
+  .race-screen .race-metrics strong { font-size: 23px; }
+  .race-screen .race-metrics .time-metric strong { font-size: 15px; }
+  .race-screen .leaderboard { top: 107px; width: 148px; }
+  .race-screen .weather-chip { top: 108px; }
+  .race-screen .race-notice { bottom: 315px; max-width: calc(100vw - 30px); }
+  .race-screen .replay-controls { bottom: 330px; }
+  .telemetry-meters { margin-inline: 8px; }
+  .telemetry-status { font-size: 6px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dial-progress { transition: none; }
+}
+@media (min-width: 1000px) {
+  .race-screen .telemetry {
+    width: calc(var(--dial-size) + 138px);
+    flex-basis: calc(var(--dial-size) + 138px);
+    display: grid;
+    grid-template-columns: 126px var(--dial-size);
+    grid-template-rows: 1fr auto;
+    gap: 4px 12px;
+    align-items: end;
+  }
+  .telemetry .speedometer { grid-column: 2; grid-row: 1 / 3; }
+  .telemetry .telemetry-status { grid-column: 1; grid-row: 1; margin: 0; }
+  .telemetry .telemetry-meters { grid-column: 1; grid-row: 2; margin: 0; padding: 9px 10px; }
+  .race-screen .replay-controls { bottom: calc(var(--dial-size) + 45px); }
+}

@@ -17,6 +17,7 @@ import { RaceManager } from "./race/RaceManager.js";
 import { CameraRig } from "./camera/CameraRig.js";
 import { WeatherSystem } from "./weather/WeatherSystem.js";
 import { AudioManager } from "./audio/AudioManager.js";
+import { hasAudioOutput, musicEnabled } from "./audio/MusicManager.js";
 import { ReplayRecorder } from "./replay/ReplayRecorder.js";
 import { HUD } from "./ui/HUD.js";
 
@@ -73,7 +74,7 @@ try {
   pmrem.dispose();
   const cameras = new CameraRig(renderer.domElement, track),
     weather = new WeatherSystem(workshop.race, trackVisual),
-    audio = new AudioManager(storage.data, (status) => ui.setAudioStatus(status));
+    audio = new AudioManager(storage.data, (status) => ui.setAudioStatus(status), (status) => ui.setMusicStatus(status));
   const garageModels = new Map(),
     raceModels = new Map();
   for (const car of CARS) {
@@ -117,6 +118,7 @@ try {
     input?.clear();
     loop?.reset();
     audio.setActive(["racing", "countdown", "replay"].includes(value));
+    audio.music.setScene(value);
     resize();
   });
   const ui = new HUD(storage, {
@@ -124,6 +126,7 @@ try {
     car: chooseCar,
     part: choosePart,
     settings: updateSettings,
+    dialogClosed: () => audio.music.setPreview(false),
     seek: (percent) => {
       if (state.value === "replay") {
         replayTime = (recorder.duration * percent) / 100;
@@ -140,6 +143,14 @@ try {
     },
   });
   const loop = new GameLoop(update, render);
+  // Browsers require a user gesture before the garage soundtrack can start.
+  document.addEventListener("pointerdown", (event) => {
+    if (!event.target.closest('[data-action="music"], [data-action="sound"], [data-action="test-music"], [data-action="test-sound"]'))
+      void requestAudio();
+  }, { once: true });
+  window.addEventListener("blur", () => audio.music.setHidden(true));
+  window.addEventListener("focus", () => audio.music.setHidden(document.hidden));
+  document.addEventListener("visibilitychange", () => audio.music.setHidden(document.hidden));
 
   function chooseCar(id) {
     if (!["loading", "garage"].includes(state.value)) return;
@@ -202,7 +213,7 @@ try {
     state.set("countdown");
     ui.updateRace(race);
     requestAudio({ frequency: 550 });
-    if (storage.data.muted || storage.data.volume === 0)
+    if (!hasAudioOutput(storage.data))
       ui.toast("소리가 꺼져 있습니다. 상단 ‘소리 켜기’를 눌러 주세요.");
     document.activeElement?.blur();
   }
@@ -258,13 +269,28 @@ try {
         changeCamera();
         break;
       case "sound":
-        storage.data.muted = !storage.data.muted && storage.data.volume > 0;
-        if (!storage.data.muted && storage.data.volume === 0) storage.data.volume = 0.5;
+        storage.data.muted = hasAudioOutput(storage.data);
+        if (!storage.data.muted && !hasAudioOutput(storage.data)) storage.data.volume = 0.5;
         storage.save();
         ui.syncSettings();
         audio.sync();
         if (!storage.data.muted) requestAudio({ preview: true, frequency: 740 });
         break;
+      case "music":
+      case "test-music": {
+        const enable = name === "test-music" || !musicEnabled(storage.data) || audio.music.inspect().status === "locked";
+        storage.data.musicMuted = !enable;
+        if (enable) {
+          storage.data.muted = false;
+          if (storage.data.musicVolume === 0) storage.data.musicVolume = 0.28;
+        }
+        if (name === "test-music") audio.music.setPreview(true);
+        storage.save();
+        ui.syncSettings();
+        audio.sync();
+        if (enable) requestAudio();
+        break;
+      }
       case "test-sound":
         storage.data.muted = false;
         if (storage.data.volume === 0) storage.data.volume = 0.5;
@@ -293,6 +319,7 @@ try {
         ui.showAsset(selected.sheet);
         break;
       case "close-dialog":
+        audio.music.setPreview(false);
         ui.closeDialogs();
         break;
       case "replay":
@@ -319,7 +346,7 @@ try {
     }
   }
   async function requestAudio({ preview = false, frequency } = {}) {
-    if (storage.data.muted || storage.data.volume === 0) return;
+    if (!hasAudioOutput(storage.data)) return;
     const ready = await audio.unlock();
     if (!ready) {
       ui.toast("오디오를 시작하지 못했습니다. 설정의 ‘소리 확인’을 다시 눌러 주세요.");
@@ -332,15 +359,25 @@ try {
     storage.data.reducedMotion = ui.refs["motion-setting"].checked;
     storage.data.muted = !ui.refs["sound-setting"].checked;
     storage.data.volume = Number(ui.refs["volume-setting"].value);
+    storage.data.musicMuted = !ui.refs["music-setting"].checked;
+    storage.data.musicVolume = Number(ui.refs["music-volume-setting"].value);
     if (changed === "volume" && storage.data.volume > 0) storage.data.muted = false;
     if (changed === "sound" && !storage.data.muted && storage.data.volume === 0)
       storage.data.volume = 0.5;
+    if (changed === "music-volume" && storage.data.musicVolume > 0) storage.data.musicMuted = false;
+    if (changed === "music" && !storage.data.musicMuted && storage.data.musicVolume === 0)
+      storage.data.musicVolume = 0.28;
+    if (["music", "music-volume"].includes(changed) && !storage.data.musicMuted) {
+      storage.data.muted = false;
+      audio.music.setPreview(true);
+    }
     storage.save();
     applySettings();
     ui.syncSettings();
     audio.sync();
     if (changed === "sound" || changed === "volume")
       requestAudio({ preview: true, frequency: 740 });
+    if (changed === "music" || changed === "music-volume") requestAudio();
   }
   function applySettings() {
     const low = storage.data.quality === "performance";
@@ -514,6 +551,7 @@ try {
           audio: {
             active: audio.active,
             state: audio.context?.state ?? "locked",
+            music: audio.music.inspect(),
           },
         }),
       }),

@@ -125,7 +125,8 @@ try {
   await page.keyboard.down("KeyA");
   await page.waitForTimeout(650);
   await page.keyboard.up("KeyA");
-  assert.ok((await read()).race.cars[0].lane < lane);
+  // Positive lane offsets move left in the driver's view.
+  assert.ok((await read()).race.cars[0].lane > lane);
   await page.keyboard.down("Space");
   await page.keyboard.down("Shift");
   await page.waitForTimeout(300);

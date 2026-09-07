@@ -1,11 +1,13 @@
 import { clamp } from "../config.js";
+import { MusicManager } from "./MusicManager.js";
 
 export class AudioManager {
-  constructor(settings, onStatus = () => {}) {
+  constructor(settings, onStatus = () => {}, onMusicStatus = () => {}) {
     this.settings = settings;
     this.onStatus = onStatus;
     this.context = null;
     this.active = false;
+    this.music = new MusicManager(settings, onMusicStatus);
   }
   async unlock() {
     let timer;
@@ -17,7 +19,10 @@ export class AudioManager {
           return false;
         }
         this.context = new Audio();
-        this.context.onstatechange = () => this.onStatus(this.context.state);
+        this.context.onstatechange = () => {
+          this.onStatus(this.context.state);
+          this.music.sync();
+        };
         this.master = this.context.createGain();
         this.master.gain.value = 0;
         this.master.connect(this.context.destination);
@@ -56,6 +61,7 @@ export class AudioManager {
         this.rain.connect(this.rainGain);
         this.rainGain.connect(this.driving);
         this.rain.start();
+        this.music.attach(this.context);
       }
       if (this.context.state !== "running") {
         // Called from start/resume/sound clicks, inside the user's gesture.
@@ -64,6 +70,7 @@ export class AudioManager {
           new Promise((resolve) => { timer = setTimeout(resolve, 1200); }),
         ]);
       }
+      this.music.retry();
       this.sync();
       this.onStatus(this.context.state);
       return this.context.state === "running";
@@ -81,6 +88,7 @@ export class AudioManager {
     const now = this.context.currentTime;
     this.master.gain.setTargetAtTime(this.settings.muted ? 0 : volume, now, 0.02);
     this.driving.gain.setTargetAtTime(this.active ? 1 : 0, now, 0.02);
+    this.music.sync();
   }
   setActive(active) {
     this.active = active;

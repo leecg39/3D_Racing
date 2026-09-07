@@ -3,6 +3,8 @@ const defaults = {
   selected: "zephyr",
   volume: 0.5,
   muted: false,
+  musicMuted: false,
+  musicVolume: 0.28,
   quality: "balanced",
   reducedMotion: false,
   records: [],
@@ -27,6 +29,9 @@ export class Storage {
           ? clamp(saved.volume, 0, 1)
           : defaults.volume;
         this.data.muted = typeof saved.muted === "boolean" ? saved.muted : defaults.muted;
+        this.data.musicMuted = typeof saved.musicMuted === "boolean" ? saved.musicMuted : defaults.musicMuted;
+        this.data.musicVolume = Number.isFinite(saved.musicVolume)
+          ? clamp(saved.musicVolume, 0, 1) : defaults.musicVolume;
         this.data.quality = ["balanced", "performance"].includes(saved.quality)
           ? saved.quality
           : defaults.quality;

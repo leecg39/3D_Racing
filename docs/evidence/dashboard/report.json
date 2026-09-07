@@ -1,0 +1,364 @@
+{
+  "status": "passed",
+  "date": "2026-09-07T14:51:19.683Z",
+  "browser": "149.0.7827.201",
+  "checks": [
+    "countdown resets both the digital speed and arc to zero",
+    "digital display, accessible value and arc follow the live car speed",
+    "real boost input changes the drive indicator and gauge treatment",
+    "stabilization is represented by the GRIP state",
+    "pause freezes the gauge and resume restores live updates",
+    "gauge, meters and surrounding overlays fit five viewport sizes",
+    "0/400 limits, backwards speed updates, overheat, impact and finish states",
+    "reduced motion is respected and the gauge works in the forward camera",
+    "no JavaScript errors, failed assets or HTTP errors"
+  ],
+  "layouts": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "parts": [
+        {
+          "selector": "#speed-gauge",
+          "x": 1174,
+          "y": 637,
+          "right": 1410,
+          "bottom": 873,
+          "width": 236,
+          "height": 236,
+          "visible": true
+        },
+        {
+          "selector": ".telemetry-meters",
+          "x": 1036,
+          "y": 806,
+          "right": 1162,
+          "bottom": 873,
+          "width": 126,
+          "height": 67,
+          "visible": true
+        },
+        {
+          "selector": ".map-panel",
+          "x": 30,
+          "y": 741.625,
+          "right": 225,
+          "bottom": 873,
+          "width": 195,
+          "height": 131.375,
+          "visible": true
+        },
+        {
+          "selector": ".driving-help",
+          "x": 496.859375,
+          "y": 834,
+          "right": 764.15625,
+          "bottom": 873,
+          "width": 267.296875,
+          "height": 39,
+          "visible": true
+        },
+        {
+          "selector": ".weather-chip",
+          "x": 1291.71875,
+          "y": 149,
+          "right": 1410,
+          "bottom": 201,
+          "width": 118.28125,
+          "height": 52,
+          "visible": true
+        }
+      ],
+      "scrollWidth": 1440,
+      "replay": {
+        "selector": "#replay-controls",
+        "x": 385,
+        "y": 573,
+        "right": 1055,
+        "bottom": 619,
+        "width": 670,
+        "height": 46,
+        "visible": true
+      }
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "parts": [
+        {
+          "selector": "#speed-gauge",
+          "x": 1014,
+          "y": 457,
+          "right": 1250,
+          "bottom": 693,
+          "width": 236,
+          "height": 236,
+          "visible": true
+        },
+        {
+          "selector": ".telemetry-meters",
+          "x": 876,
+          "y": 626,
+          "right": 1002,
+          "bottom": 693,
+          "width": 126,
+          "height": 67,
+          "visible": true
+        },
+        {
+          "selector": ".map-panel",
+          "x": 30,
+          "y": 561.625,
+          "right": 225,
+          "bottom": 693,
+          "width": 195,
+          "height": 131.375,
+          "visible": true
+        },
+        {
+          "selector": ".driving-help",
+          "x": 416.859375,
+          "y": 654,
+          "right": 684.15625,
+          "bottom": 693,
+          "width": 267.296875,
+          "height": 39,
+          "visible": true
+        },
+        {
+          "selector": ".weather-chip",
+          "x": 1131.71875,
+          "y": 149,
+          "right": 1250,
+          "bottom": 201,
+          "width": 118.28125,
+          "height": 52,
+          "visible": true
+        }
+      ],
+      "scrollWidth": 1280,
+      "replay": {
+        "selector": "#replay-controls",
+        "x": 305,
+        "y": 393,
+        "right": 975,
+        "bottom": 439,
+        "width": 670,
+        "height": 46,
+        "visible": true
+      }
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 522
+      },
+      "parts": [
+        {
+          "selector": "#speed-gauge",
+          "x": 842,
+          "y": 346,
+          "right": 1008,
+          "bottom": 512,
+          "width": 166,
+          "height": 166,
+          "visible": true
+        },
+        {
+          "selector": ".telemetry-meters",
+          "x": 704,
+          "y": 449,
+          "right": 830,
+          "bottom": 512,
+          "width": 126,
+          "height": 63,
+          "visible": true
+        },
+        {
+          "selector": ".map-panel",
+          "x": 20,
+          "y": 410.21875,
+          "right": 165,
+          "bottom": 512,
+          "width": 145,
+          "height": 101.78125,
+          "visible": true
+        },
+        {
+          "selector": ".driving-help",
+          "x": 318.984375,
+          "y": 477,
+          "right": 550.03125,
+          "bottom": 512,
+          "width": 231.046875,
+          "height": 35,
+          "visible": true
+        },
+        {
+          "selector": ".weather-chip",
+          "x": 887.71875,
+          "y": 137,
+          "right": 994,
+          "bottom": 179,
+          "width": 106.28125,
+          "height": 42,
+          "visible": true
+        }
+      ],
+      "scrollWidth": 1024,
+      "replay": {
+        "selector": "#replay-controls",
+        "x": 177,
+        "y": 265,
+        "right": 847,
+        "bottom": 311,
+        "width": 670,
+        "height": 46,
+        "visible": true
+      }
+    },
+    {
+      "viewport": {
+        "width": 850,
+        "height": 700
+      },
+      "parts": [
+        {
+          "selector": "#speed-gauge",
+          "x": 632,
+          "y": 406,
+          "right": 830,
+          "bottom": 604,
+          "width": 198,
+          "height": 198,
+          "visible": true
+        },
+        {
+          "selector": ".telemetry-meters",
+          "x": 646,
+          "y": 621,
+          "right": 816,
+          "bottom": 684,
+          "width": 170,
+          "height": 63,
+          "visible": true
+        },
+        {
+          "selector": ".map-panel",
+          "x": 20,
+          "y": 570.96875,
+          "right": 184,
+          "bottom": 684,
+          "width": 164,
+          "height": 113.03125,
+          "visible": true
+        },
+        {
+          "selector": ".driving-help",
+          "x": 309.4765625,
+          "y": 649,
+          "right": 540.5234375,
+          "bottom": 684,
+          "width": 231.046875,
+          "height": 35,
+          "visible": true
+        },
+        {
+          "selector": ".weather-chip",
+          "x": 729.875,
+          "y": 138,
+          "right": 833,
+          "bottom": 184,
+          "width": 103.125,
+          "height": 46,
+          "visible": true
+        }
+      ],
+      "scrollWidth": 850,
+      "replay": {
+        "selector": "#replay-controls",
+        "x": 90,
+        "y": 321,
+        "right": 760,
+        "bottom": 367,
+        "width": 670,
+        "height": 46,
+        "visible": true
+      }
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "parts": [
+        {
+          "selector": "#speed-gauge",
+          "x": 214,
+          "y": 560,
+          "right": 378,
+          "bottom": 724,
+          "width": 164,
+          "height": 164,
+          "visible": true
+        },
+        {
+          "selector": ".telemetry-meters",
+          "x": 222,
+          "y": 741,
+          "right": 370,
+          "bottom": 804,
+          "width": 148,
+          "height": 63,
+          "visible": true
+        },
+        {
+          "selector": ".map-panel",
+          "x": 12,
+          "y": 709.90625,
+          "right": 144,
+          "bottom": 804,
+          "width": 132,
+          "height": 94.09375,
+          "visible": true
+        },
+        {
+          "selector": ".driving-help",
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0,
+          "visible": false
+        },
+        {
+          "selector": ".weather-chip",
+          "x": 269.875,
+          "y": 180,
+          "right": 373,
+          "bottom": 226,
+          "width": 103.125,
+          "height": 46,
+          "visible": true
+        }
+      ],
+      "scrollWidth": 390,
+      "replay": {
+        "selector": "#replay-controls",
+        "x": 11.703125,
+        "y": 472,
+        "right": 378.296875,
+        "bottom": 514,
+        "width": 366.59375,
+        "height": 42,
+        "visible": true
+      }
+    }
+  ],
+  "errors": []
+}

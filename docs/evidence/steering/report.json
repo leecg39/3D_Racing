@@ -1,0 +1,80 @@
+{
+  "status": "passed",
+  "date": "2026-09-07T14:38:35.442Z",
+  "browser": "149.0.7827.201",
+  "checks": [
+    {
+      "code": "ArrowLeft",
+      "camera": 0,
+      "laneDelta": 0.05820556942401556,
+      "screenDelta": -0.008792477570508843
+    },
+    {
+      "code": "ArrowRight",
+      "camera": 0,
+      "laneDelta": -0.030189821724090793,
+      "screenDelta": 0.004596513222053312
+    },
+    {
+      "code": "KeyA",
+      "camera": 0,
+      "laneDelta": 0.030189821724090793,
+      "screenDelta": -0.004590177502358332
+    },
+    {
+      "code": "KeyD",
+      "camera": 0,
+      "laneDelta": -0.030189821724090793,
+      "screenDelta": 0.004596513222053312
+    },
+    {
+      "code": "ArrowLeft",
+      "camera": 2,
+      "laneDelta": 0.030189821724090793,
+      "screenDelta": -0.0032453739872469697
+    },
+    {
+      "code": "ArrowRight",
+      "camera": 2,
+      "laneDelta": -0.05820556942401556,
+      "screenDelta": 0.006444567033097931
+    },
+    {
+      "code": "KeyA",
+      "camera": 2,
+      "laneDelta": 0.05820556942401556,
+      "screenDelta": -0.006055675436609368
+    },
+    {
+      "code": "KeyD",
+      "camera": 2,
+      "laneDelta": -0.030189821724090793,
+      "screenDelta": 0.0033264920331513063
+    },
+    {
+      "code": "ArrowLeft",
+      "camera": 3,
+      "laneDelta": 0.030189821724090793,
+      "screenDelta": -0.0036038718269885694
+    },
+    {
+      "code": "ArrowRight",
+      "camera": 3,
+      "laneDelta": -0.05820556942401556,
+      "screenDelta": 0.006930394894830637
+    },
+    {
+      "code": "KeyA",
+      "camera": 3,
+      "laneDelta": 0.030189821724090793,
+      "screenDelta": -0.0036038718141487114
+    },
+    {
+      "code": "KeyD",
+      "camera": 3,
+      "laneDelta": -0.030189821724090793,
+      "screenDelta": 0.0035975527907562434
+    }
+  ],
+  "errors": []
+}

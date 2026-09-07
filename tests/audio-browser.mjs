@@ -1,12 +1,17 @@
 import { chromium } from "playwright";
 import assert from "node:assert/strict";
 import { mkdir, writeFile } from "node:fs/promises";
+import { CONFIG } from "../src/config.js";
 
 const url = process.env.GAME_URL || "http://127.0.0.1:5173/";
 const evidence = "docs/evidence/audio-handling";
 await mkdir(evidence, { recursive: true });
 const browser = await chromium.launch({ channel: "chrome", headless: true });
 const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+// Keep this effects-only suite independent of the separately tested soundtrack.
+await context.addInitScript((key) => {
+  if (!localStorage.getItem(key)) localStorage.setItem(key, JSON.stringify({ musicMuted: true }));
+}, CONFIG.storageKey);
 await context.addInitScript(() => {
   // Observe actual samples downstream of the app's master gain, not its flags.
   const connect = AudioNode.prototype.connect;

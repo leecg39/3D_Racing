@@ -12,15 +12,15 @@
     "unsupported audio reports a visible error while racing remains playable"
   ],
   "metrics": {
-    "engineRms": 0.0349460465876953,
+    "engineRms": 0.03496926180651795,
     "impact": {
       "before": 17.245124942626568,
-      "after": 11.662248159264777,
+      "after": 11.859674026176325,
       "count": 1,
-      "side": -1
+      "side": 1
     },
     "pausedRms": 0,
-    "previewRms": 0.05383793749661599
+    "previewRms": 0.05367152157690208
   },
   "errors": []
 }
