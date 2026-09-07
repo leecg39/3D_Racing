@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "url": "http://127.0.0.1:5173/",
+  "browser": "149.0.7827.201",
+  "checks": [
+    "fresh start produces real audio samples without a separate unmute step",
+    "real steering hits the rail and reduces actual speed with impact HUD",
+    "pause silences output and resume recovers a suspended AudioContext",
+    "sound test is audible in paused settings without resuming the race",
+    "zero volume recovery, persistent mute and garage unmute confirmation work",
+    "garage wheel test starts and stops the motor sound",
+    "unsupported audio reports a visible error while racing remains playable"
+  ],
+  "metrics": {
+    "engineRms": 0.0349460465876953,
+    "impact": {
+      "before": 17.245124942626568,
+      "after": 11.662248159264777,
+      "count": 1,
+      "side": -1
+    },
+    "pausedRms": 0,
+    "previewRms": 0.05383793749661599
+  },
+  "errors": []
+}

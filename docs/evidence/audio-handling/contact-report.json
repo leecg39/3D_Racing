@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "browser": "149.0.7827.201",
+  "rows": [
+    {
+      "id": "zephyr",
+      "wheelSamples": 800,
+      "maxGap": 0.006399851667109768,
+      "minGap": -0.011222545103343695,
+      "misses": 0
+    },
+    {
+      "id": "vortex",
+      "wheelSamples": 800,
+      "maxGap": 0.006399851667109768,
+      "minGap": -0.011222545103343695,
+      "misses": 0
+    },
+    {
+      "id": "bulldog",
+      "wheelSamples": 800,
+      "maxGap": 0.006399851667110046,
+      "minGap": -0.011222545103343584,
+      "misses": 0
+    },
+    {
+      "id": "nova",
+      "wheelSamples": 800,
+      "maxGap": 0.006399851667109768,
+      "minGap": -0.011222545103343695,
+      "misses": 0
+    }
+  ],
+  "note": "Raycast against the actual ribbon geometry, 4 cars × 200 track positions × 4 tires; world units, not real metres."
+}

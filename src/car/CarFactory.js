@@ -3,6 +3,26 @@ import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { material, box, cylinder, labelTexture } from "../world/materials.js";
 import { damp } from "../config.js";
 
+let tireContactTexture;
+function contactMaterial() {
+  if (!tireContactTexture) {
+    const canvas = document.createElement("canvas");
+    canvas.width = canvas.height = 64;
+    const ctx = canvas.getContext("2d");
+    const gradient = ctx.createRadialGradient(32, 32, 3, 32, 32, 32);
+    gradient.addColorStop(0, "rgba(0,0,0,0.8)");
+    gradient.addColorStop(0.45, "rgba(0,0,0,0.45)");
+    gradient.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, 64, 64);
+    tireContactTexture = new THREE.CanvasTexture(canvas);
+  }
+  return new THREE.MeshBasicMaterial({
+    map: tireContactTexture, transparent: true, opacity: 0.65,
+    depthWrite: false, polygonOffset: true, polygonOffsetFactor: -1,
+  });
+}
+
 // Cross sections create curved bodywork with separate fenders and an open chassis.
 function loftGeometry(sections, xOffset = 0) {
   const positions = [],
@@ -352,6 +372,9 @@ export class CarModel {
       box(batteries, [0.1, 0.012, 0.6], [x, 0.635, -0.1], chrome);
     }
     const wheels = part("Wheels", [0, 0.1, 0]);
+    this.tireRadius = (heavy ? 0.43 : 0.405) + 0.006;
+    for (const z of [-1.15, 1.1])
+      cylinder(chassis, 0.045, 1.98, [0, 0.43, z], chrome, [0, 0, Math.PI / 2], 12);
     for (const x of [-0.99, 0.99])
       for (const z of [-1.15, 1.1]) {
         const pivot = new THREE.Group();
@@ -416,7 +439,7 @@ export class CarModel {
               Math.cos(a) * (heavy ? 0.43 : 0.405),
             ],
             carbon,
-            [-a, 0, 0],
+            [Math.PI / 2 - a, 0, 0],
           );
         }
         mergeStatic(pivot);
@@ -482,19 +505,54 @@ export class CarModel {
     this.flame.position.set(0, 0.43, -2.05);
     this.flame.visible = false;
     this.root.add(this.flame);
+    const sparkPositions = new Float32Array(18 * 3);
+    for (let i = 0; i < 18; i++) {
+      sparkPositions[i * 3] = (i % 3) * 0.09;
+      sparkPositions[i * 3 + 1] = 0.12 + ((i * 7) % 11) * 0.035;
+      sparkPositions[i * 3 + 2] = -0.8 + ((i * 5) % 17) * 0.09;
+    }
+    const sparkGeometry = new THREE.BufferGeometry();
+    sparkGeometry.setAttribute("position", new THREE.BufferAttribute(sparkPositions, 3));
+    this.sparks = new THREE.Points(sparkGeometry, new THREE.PointsMaterial({
+      color: "#ffb43c", size: 0.085, transparent: true, depthWrite: false,
+    }));
+    this.sparks.visible = false;
+    this.root.add(this.sparks);
+    // Local contact occlusion remains visible even in shadow-free performance mode.
+    this.contactShadows = new THREE.InstancedMesh(new THREE.PlaneGeometry(0.58, 0.66), contactMaterial(), 4);
+    this.contactShadows.frustumCulled = false;
+    this.contactMatrix = new THREE.Object3D();
+    this.contactMatrix.rotation.x = -Math.PI / 2;
+    this.root.add(this.contactShadows);
   }
-  update(dt, { speed = 0, boost = false, wheelTest = false } = {}) {
+  update(dt, { speed = 0, boost = false, wheelTest = false, impact = 0, impactSide = 0 } = {}) {
     this.explosion = damp(this.explosion, this.exploded ? 1 : 0, 6, dt);
     for (const group of Object.values(this.parts))
       group.position
         .copy(group.userData.explode)
         .multiplyScalar(this.explosion);
     for (const pivot of this.wheelPivots) {
+      pivot.position.copy(pivot.userData.base);
       pivot.position.x =
         pivot.userData.base.x + pivot.userData.side * this.explosion * 0.85;
-      pivot.rotation.x += dt * (wheelTest ? 13 : speed / 0.405);
+      pivot.rotation.x += dt * (wheelTest ? 13 : speed / this.tireRadius);
     }
     this.flame.visible = boost;
+    this.sparks.visible = impact > 0;
+    this.sparks.position.set(impactSide * 1.3, 0.12, 0);
+    this.sparks.scale.set(impactSide || 1, 1 + (1 - impact) * 2, 1 + (1 - impact) * 2);
+    this.sparks.material.opacity = impact;
+    this.updateContactShadows();
+  }
+  updateContactShadows() {
+    this.contactShadows.visible = this.explosion < 0.05;
+    this.wheelPivots.forEach((wheel, i) => {
+      this.contactMatrix.position.copy(wheel.position);
+      this.contactMatrix.position.y -= this.tireRadius - 0.014 / this.root.scale.x;
+      this.contactMatrix.updateMatrix();
+      this.contactShadows.setMatrixAt(i, this.contactMatrix.matrix);
+    });
+    this.contactShadows.instanceMatrix.needsUpdate = true;
   }
   selectPart(name) {
     this.selectedPart = name;

@@ -118,6 +118,11 @@ export class CameraRig {
       : 1;
     this.camera.position.lerp(position, smooth);
     this.target.lerp(target, smooth);
+    if (!this.reducedMotion && car.impactRemaining > 0) {
+      const shake = car.impactRemaining * 0.2;
+      this.camera.position.addScaledVector(frame.side, Math.sin(time * 95) * shake);
+      this.camera.position.addScaledVector(frame.up, Math.sin(time * 71) * shake * 0.5);
+    }
     const desiredUp = [0, 2, 3].includes(mode)
       ? frame.up
       : new THREE.Vector3(0, 1, 0);

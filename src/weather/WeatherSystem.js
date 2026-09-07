@@ -33,8 +33,8 @@ export class WeatherSystem {
   setLap(lap) {
     this.lap = lap;
     this.trackVisual.setWeather(lap);
-    this.rain.visible = lap === 3 && this.enabled;
-    this.scene.userData.sun.intensity = lap === 3 ? 2.2 : lap === 2 ? 2.9 : 3.5;
+    this.rain.visible = lap >= 3 && this.enabled;
+    this.scene.userData.sun.intensity = lap >= 3 ? 2.2 : lap === 2 ? 2.9 : 3.5;
   }
   update(time) {
     if (!this.rain.visible) return;

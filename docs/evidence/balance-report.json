@@ -5,22 +5,22 @@
     {
       "car": "zephyr",
       "none": {
-        "seconds": 78.85075954128007,
+        "seconds": 33.31885256906695,
         "overheats": 0,
         "position": 4
       },
       "boost": {
-        "seconds": 86.6513413484647,
-        "overheats": 13,
+        "seconds": 28.323076603939967,
+        "overheats": 3,
         "position": 4
       },
       "both": {
-        "seconds": 100.10430669189967,
+        "seconds": 40.419496703952724,
         "overheats": 0,
         "position": 4
       },
       "strategy": {
-        "seconds": 65.84271348319102,
+        "seconds": 24.96446257746312,
         "overheats": 0,
         "position": 3
       }
@@ -28,22 +28,22 @@
     {
       "car": "vortex",
       "none": {
-        "seconds": 73.18644972885224,
+        "seconds": 31.406459279483126,
         "overheats": 0,
         "position": 4
       },
       "boost": {
-        "seconds": 80.23927899239857,
-        "overheats": 12,
+        "seconds": 27.467796844712154,
+        "overheats": 3,
         "position": 4
       },
       "both": {
-        "seconds": 91.07303280688812,
+        "seconds": 36.79125154086356,
         "overheats": 0,
         "position": 4
       },
       "strategy": {
-        "seconds": 61.94083857881928,
+        "seconds": 24.103586921450646,
         "overheats": 0,
         "position": 1
       }
@@ -51,22 +51,22 @@
     {
       "car": "bulldog",
       "none": {
-        "seconds": 81.97164503440207,
+        "seconds": 33.85670760193672,
         "overheats": 0,
         "position": 4
       },
       "boost": {
-        "seconds": 86.91264046518843,
-        "overheats": 15,
+        "seconds": 26.263037346008907,
+        "overheats": 3,
         "position": 4
       },
       "both": {
-        "seconds": 105.33470844321289,
+        "seconds": 42.51825385176094,
         "overheats": 0,
         "position": 4
       },
       "strategy": {
-        "seconds": 65.95870948009022,
+        "seconds": 24.99911986370245,
         "overheats": 0,
         "position": 3
       }
@@ -74,22 +74,22 @@
     {
       "car": "nova",
       "none": {
-        "seconds": 76.76176091159583,
+        "seconds": 32.00799865566917,
         "overheats": 0,
         "position": 4
       },
       "boost": {
-        "seconds": 85.50322231780777,
-        "overheats": 12,
+        "seconds": 27.976213157916952,
+        "overheats": 3,
         "position": 4
       },
       "both": {
-        "seconds": 98.1576096186121,
+        "seconds": 39.63590067115127,
         "overheats": 0,
         "position": 4
       },
       "strategy": {
-        "seconds": 63.11470674030875,
+        "seconds": 24.13138038697831,
         "overheats": 0,
         "position": 2
       }

@@ -40,12 +40,12 @@ export class HUD {
         <aside class="spec-panel"><div class="spec-top"><span class="eyebrow">MACHINE PROFILE</span><span id="spec-number">01 / 04</span></div><h2 id="car-name">ZEPHYR</h2><div class="car-subtitle"><span id="car-role">BALANCED ALL-ROUNDER</span><span class="color-chip"></span></div><p id="car-description"></p><div id="car-stats"></div><div class="spec-foot"><span>스케일 <b>1:32</b></span><span>구동 방식 <b>4WD</b></span><span>파워 유닛 <b>ELECTRIC</b></span></div><div class="model-controls"><button data-action="explode" id="explode-button">${icon("expand", 17)} 분해도 <span>OFF</span></button><button data-action="wheel" id="wheel-button">${icon("wheel", 17)} 바퀴 테스트</button></div><div id="part-detail"><span class="detail-dot"></span><span>부품을 선택해 자세히 살펴보세요.</span></div><button class="blueprint-link" data-action="car-blueprint">원본 차량·부품 이미지 보기 ${icon("arrow", 14)}</button></aside>
         <div class="orbit-hint"><span>↔</span> 드래그하여 회전 <i>·</i> 스크롤하여 확대</div>
         <section class="garage-bottom"><div class="parts-row"><span class="eyebrow">EXPLORE PARTS</span><div id="parts-list">${PARTS.map(([id, name], i) => `<button data-part="${id}" aria-pressed="false"><small>${String(i + 1).padStart(2, "0")}</small>${name}</button>`).join("")}</div></div>
-          <div class="selection-row"><div class="vehicle-selection"><div class="section-label"><span class="eyebrow">SELECT YOUR MACHINE</span><span>04 MACHINES / ONE WORKBENCH</span></div><div class="car-cards">${CARS.map((car) => `<button class="car-card" data-car="${car.id}" style="--car-color:${car.color}" aria-pressed="false"><span class="card-number">${car.number}</span><span class="asset-car" role="img" aria-label="${car.subtitle} 원본 차량 에셋" style="${atlasStyle(car.id)}"></span><span class="card-name">${car.name}<small>${car.role}</small></span><span class="card-selected">↗</span></button>`).join("")}</div></div><div class="start-panel"><div class="track-info">${icon("flag", 18)}<span>작업실 서킷 <small>AI 3대 · 3 LAPS · 약 60–90초</small></span></div><button class="primary start-button" data-action="start">레이스 시작 ${icon("arrow", 23)}</button></div></div>
+          <div class="selection-row"><div class="vehicle-selection"><div class="section-label"><span class="eyebrow">SELECT YOUR MACHINE</span><span>04 MACHINES / ONE WORKBENCH</span></div><div class="car-cards">${CARS.map((car) => `<button class="car-card" data-car="${car.id}" style="--car-color:${car.color}" aria-pressed="false"><span class="card-number">${car.number}</span><span class="asset-car" role="img" aria-label="${car.subtitle} 원본 차량 에셋" style="${atlasStyle(car.id)}"></span><span class="card-name">${car.name}<small>${car.role}</small></span><span class="card-selected">↗</span></button>`).join("")}</div></div><div class="start-panel"><div class="track-info">${icon("flag", 18)}<span>작업실 서킷 <small>AI 3대 · ${CONFIG.laps} LAPS · 완주 레이스</small></span></div><button class="primary start-button" data-action="start">레이스 시작 ${icon("arrow", 23)}</button></div></div>
           <footer class="garage-footer"><span>TINY TRACKS. HUGE THRILLS.</span><span>${key("A")}${key("D")} 주행선 ${key("SPACE")} 부스트 ${key("SHIFT")} 안정화</span><span>WORKSHOP EDITION <i>v2.0</i></span></footer>
         </section>
       </main>
       <main id="race-screen" class="screen race-screen" hidden>
-        <div class="race-top"><section class="race-metrics"><div class="position-metric"><span class="eyebrow">POSITION</span><strong id="race-position">1<span>/ 4</span></strong></div><div><span class="eyebrow">LAP</span><strong id="race-lap">1 <span>/ 3</span></strong></div><div class="time-metric"><span class="eyebrow">RACE TIME</span><strong id="race-time">00:00.000</strong><small id="best-lap">BEST LAP —</small></div></section><div class="race-options"><button data-action="camera" id="camera-button">${icon("camera", 18)} <span>추격</span> ${key("C")}</button><button class="icon-button" data-action="pause" aria-label="일시정지">${icon("pause")}</button></div></div>
+        <div class="race-top"><section class="race-metrics"><div class="position-metric"><span class="eyebrow">POSITION</span><strong id="race-position">1<span>/ 4</span></strong></div><div><span class="eyebrow">LAP</span><strong id="race-lap">1 <span>/ ${CONFIG.laps}</span></strong></div><div class="time-metric"><span class="eyebrow">RACE TIME</span><strong id="race-time">00:00.000</strong><small id="best-lap">BEST LAP —</small></div></section><div class="race-options"><button data-action="camera" id="camera-button">${icon("camera", 18)} <span>추격</span> ${key("C")}</button><button class="icon-button" data-action="pause" aria-label="일시정지">${icon("pause")}</button></div></div>
         <div class="leaderboard" id="leaderboard"></div>
         <div class="weather-chip" id="weather-chip">${icon("sun", 18)}<div><b>DRY TRACK</b><span>1랩 · 건조한 노면</span></div></div>
         <div id="countdown" class="countdown" hidden><span>READY TO RACE</span><strong>3</strong><p>직선에서 부스트, 코너에서 안정화</p></div>
@@ -54,9 +54,9 @@ export class HUD {
         <div class="replay-controls" id="replay-controls" hidden><span class="replay-label"><i></i> REPLAY</span><span id="replay-time">00:00</span><input id="replay-seek" type="range" min="0" max="100" value="0" step="0.05" aria-label="리플레이 시점"><button data-action="replay-speed" id="replay-speed">1×</button><button data-action="end-replay">결과로 돌아가기 ${icon("arrow", 15)}</button></div>
       </main>
       <section id="pause-screen" class="overlay" hidden><div class="modal pause-modal"><span class="eyebrow">TAKE A BREATHER</span><h2>잠시, 피트 스톱.</h2><p>레이스가 일시정지되었습니다.<br>준비가 되면 이어서 달려보세요.</p><button class="primary" data-action="resume">계속 달리기 ${icon("play", 18)}</button><button class="secondary" data-action="restart">처음부터 다시 경주</button><button class="text-button" data-action="garage">차고로 돌아가기</button><small>${key("ESC")} 또는 ${key("P")} 재개</small></div></section>
-      <section id="results-screen" class="overlay results-overlay" hidden><div class="modal results-modal"><span class="eyebrow">THE FINISH LINE</span><div class="result-title">${icon("trophy", 38)}<h2>작은 차의 큰 완주.</h2></div><p id="result-subtitle">작업실 서킷 · 3랩 완주</p><div class="result-summary"><div><small>최종 순위</small><strong id="result-position"></strong></div><div><small>총 주행 시간</small><strong id="result-time"></strong></div><div><small>최고 랩</small><strong id="result-lap"></strong></div></div><div class="results-table"><div class="results-table-head"><span>POSITION / MACHINE</span><span>TIME</span></div><div id="result-ranking"></div></div><div class="lap-splits" id="lap-splits"></div><p class="record-note" id="record-note">기록이 이 기기에 저장되었습니다.</p><div class="result-actions"><button class="primary" data-action="restart">다시 경주 ${icon("arrow", 19)}</button><button class="secondary" data-action="replay">${icon("play", 16)} 리플레이</button></div><button class="text-button" data-action="garage">차고로 돌아가기</button></div></section>
+      <section id="results-screen" class="overlay results-overlay" hidden><div class="modal results-modal"><span class="eyebrow">THE FINISH LINE</span><div class="result-title">${icon("trophy", 38)}<h2>작은 차의 큰 완주.</h2></div><p id="result-subtitle">작업실 서킷 · ${CONFIG.laps}랩 완주</p><div class="result-summary"><div><small>최종 순위</small><strong id="result-position"></strong></div><div><small>총 주행 시간</small><strong id="result-time"></strong></div><div><small>최고 랩</small><strong id="result-lap"></strong></div></div><div class="results-table"><div class="results-table-head"><span>POSITION / MACHINE</span><span>TIME</span></div><div id="result-ranking"></div></div><div class="lap-splits" id="lap-splits"></div><p class="record-note" id="record-note">기록이 이 기기에 저장되었습니다.</p><div class="result-actions"><button class="primary" data-action="restart">다시 경주 ${icon("arrow", 19)}</button><button class="secondary" data-action="replay">${icon("play", 16)} 리플레이</button></div><button class="text-button" data-action="garage">차고로 돌아가기</button></div></section>
       <dialog id="settings-dialog" class="modal settings-modal"><button class="dialog-close icon-button" data-action="close-dialog" aria-label="설정 닫기">${icon("close")}</button><span class="eyebrow">MAKE IT YOURS</span><h2>내 작업실 설정</h2><label class="setting-row"><span>그래픽 품질<small>성능 모드는 그림자·비·해상도를 줄입니다.</small></span><select id="quality-setting"><option value="balanced">균형</option><option value="performance">성능 우선</option></select></label><label class="setting-row"><span>카메라 움직임 감소<small>추격 거리를 늘리고 차고 자동 회전을 멈춥니다.</small></span><input type="checkbox" id="motion-setting"></label><label class="setting-row"><span>효과음 사용</span><input type="checkbox" id="sound-setting"></label><label class="setting-row"><span>효과음 음량</span><input type="range" id="volume-setting" min="0" max="1" step="0.05"></label><div class="settings-help"><b>레이스 조작</b><p>${key("A")}${key("D")} 주행선 · ${key("SPACE")} 부스트<br>${key("SHIFT")} 안정화 · ${key("C")} 시점 변경<br>${key("1")} – ${key("6")} 카메라 선택 · ${key("ESC")} 일시정지</p><small>부스트 중 열이 쌓입니다. 과열되면 충분히 식을 때까지 속도가 줄어듭니다. 안정화 중에는 부스트를 사용할 수 없습니다.</small></div><button class="primary" data-action="close-dialog">설정 완료 ${icon("arrow", 18)}</button></dialog>
-      <dialog id="records-dialog" class="modal records-modal"><button class="dialog-close icon-button" data-action="close-dialog" aria-label="기록 닫기">${icon("close")}</button><span class="eyebrow">PERSONAL BESTS</span><h2>이 작업실의 기록</h2><p>이 브라우저에 저장된 가장 빠른 레이스 10개입니다.</p><div id="records-list"></div><button class="secondary" data-action="close-dialog">차고로 돌아가기</button></dialog>
+      <dialog id="records-dialog" class="modal records-modal"><button class="dialog-close icon-button" data-action="close-dialog" aria-label="기록 닫기">${icon("close")}</button><span class="eyebrow">PERSONAL BESTS</span><h2>이 작업실의 기록</h2><p>${CONFIG.laps}랩 완주 상위 10개입니다. 이전 랩 수의 기록은 별도로 보존됩니다.</p><div id="records-list"></div><button class="secondary" data-action="close-dialog">차고로 돌아가기</button></dialog>
       <dialog id="assets-dialog" class="modal assets-modal"><button class="dialog-close icon-button" data-action="close-dialog" aria-label="에셋 도감 닫기">${icon("close")}</button><span class="eyebrow">THE DESIGN ARCHIVE · 07 ASSETS</span><h2 id="asset-title">차량 라인업</h2><nav class="asset-tabs" aria-label="에셋 선택">${Object.entries(
         ASSETS,
       )
@@ -84,7 +84,7 @@ export class HUD {
     });
     for (const id of ["quality", "motion", "sound", "volume"])
       this.refs[`${id}-setting`].addEventListener("input", () =>
-        handlers.settings(),
+        handlers.settings(id),
       );
     this.refs["replay-seek"].addEventListener("input", (event) =>
       handlers.seek(Number(event.target.value)),
@@ -107,6 +107,18 @@ export class HUD {
         }
       });
     }
+    const soundTest = document.createElement("button");
+    soundTest.className = "secondary";
+    soundTest.dataset.action = "test-sound";
+    soundTest.textContent = "소리 확인 · 효과음 켜기";
+    const soundStatus = document.createElement("p");
+    soundStatus.id = "sound-status";
+    soundStatus.className = "audio-status";
+    soundStatus.setAttribute("role", "status");
+    this.refs["sound-status"] = soundStatus;
+    this.refs["volume-setting"].closest("label").after(soundTest, soundStatus);
+    this.refs["sound-button"].classList.add("sound-toggle");
+    this.audioStatus = "locked";
     this.syncSettings();
   }
   setState(state) {
@@ -186,7 +198,7 @@ export class HUD {
       : race.ranking();
     this.refs["race-position"].innerHTML =
       `${ranking.findIndex((c) => c.id === player.id) + 1}<span>/ 4</span>`;
-    this.refs["race-lap"].innerHTML = `${player.lap} <span>/ 3</span>`;
+    this.refs["race-lap"].innerHTML = `${player.lap} <span>/ ${CONFIG.laps}</span>`;
     this.refs["race-time"].textContent = timeString(
       replayFrame ? replayFrame.time : (player.finishTime ?? race.time),
     );
@@ -205,6 +217,8 @@ export class HUD {
     this.refs["motor-status"].textContent =
       player.finishTime !== null
         ? "FINISHED"
+        : player.impactRemaining > 0
+          ? "RAIL IMPACT · 감속"
         : player.overheated
           ? "OVERHEAT · 냉각 중"
           : player.boosting
@@ -212,7 +226,7 @@ export class HUD {
             : player.stabilizing
               ? "STABILIZING"
               : "MOTOR RUNNING";
-    this.refs["motor-status"].className = player.overheated
+    this.refs["motor-status"].className = player.overheated || player.impactRemaining > 0
       ? "danger"
       : player.boosting
         ? "boost"
@@ -229,11 +243,13 @@ export class HUD {
     if (lap !== this.lastWeather) {
       this.lastWeather = lap;
       this.refs["weather-chip"].innerHTML =
-        `${icon(lap === 1 ? "sun" : "rain", 20)}<div><b>${["", "DRY TRACK", "WET SECTORS", "STORM LAP"][lap]}</b><span>${["", "1랩 · 건조한 노면", "2랩 · 푸른 노면을 피하세요", "3랩 · 비와 횡풍에 주의"][lap]}</span></div>`;
+        `${icon(lap === 1 ? "sun" : "rain", 20)}<div><b>${["", "DRY TRACK", "WET SECTORS", "STORM LAP"][Math.min(lap, 3)]}</b><span>${["", "1랩 · 건조한 노면", "2랩 · 푸른 노면을 피하세요", `${lap}랩 · 비와 횡풍에 주의`][Math.min(lap, 3)]}</span></div>`;
     }
     const notice =
       player.finishTime !== null
         ? "완주! 다른 차량의 결승선 통과를 기다리는 중입니다."
+        : player.impactRemaining > 0
+          ? "레일 충돌 · 충격으로 감속! 안쪽으로 조향하세요"
         : player.overheated
           ? "모터 과열 · 부스트를 쉬고 열을 식히세요"
           : player.wet && player.stability < 65
@@ -288,7 +304,7 @@ export class HUD {
     this.refs["result-subtitle"].textContent =
       position === 1
         ? "우승입니다! 작업대 위 가장 빠른 미니카."
-        : "작업실 서킷 · 3랩 완주. 다음에는 더 빠르게.";
+        : `작업실 서킷 · ${CONFIG.laps}랩 완주. 다음에는 더 빠르게.`;
     this.refs["result-ranking"].innerHTML = race
       .ranking()
       .map(
@@ -309,24 +325,46 @@ export class HUD {
     this.refs["motion-setting"].checked = data.reducedMotion;
     this.refs["sound-setting"].checked = !data.muted;
     this.refs["volume-setting"].value = data.volume;
-    this.refs["sound-button"].innerHTML = icon(data.muted ? "muted" : "sound");
+    const silent = data.muted || data.volume === 0;
+    this.refs["sound-button"].innerHTML = `${icon(silent ? "muted" : "sound")}<span>${silent ? "소리 켜기" : "소리 켜짐"}</span>`;
     this.refs["sound-button"].setAttribute(
       "aria-label",
-      data.muted ? "소리 켜기" : "소리 끄기",
+      silent ? "소리 켜기" : "소리 끄기",
     );
-    this.refs["sound-button"].title = data.muted ? "소리 켜기" : "소리 끄기";
+    this.refs["sound-button"].title = silent ? "소리 켜기" : "소리 끄기";
+    this.refs["sound-button"].setAttribute("aria-pressed", String(!silent));
+    this.setAudioStatus(this.audioStatus);
+  }
+  setAudioStatus(status) {
+    this.audioStatus = status;
+    if (!this.refs["sound-status"]) return;
+    const data = this.storage.data;
+    this.refs["sound-status"].textContent = data.muted
+      ? "음소거 상태입니다. ‘소리 확인’을 누르면 소리가 켜집니다."
+      : data.volume === 0
+        ? "음량이 0입니다. 음량을 올리거나 ‘소리 확인’을 눌러 주세요."
+        : ({
+            locked: "경주 시작 또는 ‘소리 확인’을 누르면 오디오가 시작됩니다.",
+            running: "오디오 정상 · 들리지 않으면 브라우저 탭과 기기 음량을 확인해 주세요.",
+            suspended: "오디오가 일시정지됐습니다. ‘소리 확인’ 또는 경주 재개를 눌러 주세요.",
+            interrupted: "다른 앱이 오디오를 사용 중입니다. 돌아온 뒤 ‘소리 확인’을 눌러 주세요.",
+            closed: "오디오 연결이 종료됐습니다. ‘소리 확인’을 눌러 다시 연결하세요.",
+            unsupported: "이 브라우저는 Web Audio를 지원하지 않습니다.",
+            error: "오디오 연결에 실패했습니다. ‘소리 확인’으로 재시도해 주세요.",
+          }[status] ?? "오디오 상태를 확인해 주세요.");
   }
   openDialog(type) {
     this.dialogReturnFocus = document.activeElement;
     if (type === "records") {
-      this.refs["records-list"].innerHTML = this.storage.data.records.length
-        ? this.storage.data.records
+      const records = this.storage.currentRecords();
+      this.refs["records-list"].innerHTML = records.length
+        ? records
             .map(
               (r, i) =>
                 `<div class="record-row"><span>${String(i + 1).padStart(2, "0")}</span><b>${CARS.find((c) => c.id === r.car).name}</b><strong>${timeString(r.total)}</strong><small>${r.position}위</small></div>`,
             )
             .join("")
-        : `<div class="empty-records">${icon("flag", 40)}<b>첫 번째 기록을 기다리고 있어요.</b><span>3랩을 완주하면 여기에 기록이 남습니다.</span></div>`;
+        : `<div class="empty-records">${icon("flag", 40)}<b>첫 번째 기록을 기다리고 있어요.</b><span>${CONFIG.laps}랩을 완주하면 여기에 기록이 남습니다.</span></div>`;
     }
     this.refs[`${type}-dialog`].showModal();
   }

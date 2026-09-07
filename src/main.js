@@ -12,6 +12,7 @@ import { WorkshopScene } from "./world/WorkshopScene.js";
 import { TrackSampler } from "./track/TrackSampler.js";
 import { TrackBuilder } from "./track/TrackBuilder.js";
 import { CarModel } from "./car/CarFactory.js";
+import { placeCarOnTrack } from "./car/CarPlacement.js";
 import { RaceManager } from "./race/RaceManager.js";
 import { CameraRig } from "./camera/CameraRig.js";
 import { WeatherSystem } from "./weather/WeatherSystem.js";
@@ -72,13 +73,13 @@ try {
   pmrem.dispose();
   const cameras = new CameraRig(renderer.domElement, track),
     weather = new WeatherSystem(workshop.race, trackVisual),
-    audio = new AudioManager(storage.data);
+    audio = new AudioManager(storage.data, (status) => ui.setAudioStatus(status));
   const garageModels = new Map(),
     raceModels = new Map();
   for (const car of CARS) {
     const model = new CarModel(car);
     model.root.scale.setScalar(1.55);
-    model.root.position.y = 0.07;
+    model.root.position.y = 0.0475 + (model.tireRadius - 0.43) * 1.55;
     model.root.visible = false;
     workshop.garage.add(model.root);
     garageModels.set(car.id, model);
@@ -150,6 +151,7 @@ try {
     }
     selectionBox.visible = false;
     wheelTest = false;
+    audio.setActive(false);
     storage.data.selected = selected.id;
     storage.save();
     ui.selectCar(selected);
@@ -171,7 +173,7 @@ try {
   function startRace() {
     if (!["garage", "results", "paused"].includes(state.value)) return;
     ui.closeDialogs();
-    audio.unlock();
+    audio.update({ speed: 0, boosting: false }, 1);
     input.clear();
     race = new RaceManager(track, selected);
     recorder = new ReplayRecorder();
@@ -199,7 +201,9 @@ try {
     ui.refs["race-notice"].textContent = "";
     state.set("countdown");
     ui.updateRace(race);
-    audio.beep(550);
+    requestAudio({ frequency: 550 });
+    if (storage.data.muted || storage.data.volume === 0)
+      ui.toast("소리가 꺼져 있습니다. 상단 ‘소리 켜기’를 눌러 주세요.");
     document.activeElement?.blur();
   }
   function pause() {
@@ -211,6 +215,7 @@ try {
     if (document.querySelector("dialog[open]")) return;
     if (state.value === "paused") {
       state.set(resumeState);
+      requestAudio();
       document.activeElement?.blur();
     } else pause();
   }
@@ -246,21 +251,30 @@ try {
       case "wheel":
         wheelTest = !wheelTest;
         ui.setWheel(wheelTest);
+        audio.setActive(wheelTest);
+        if (wheelTest) requestAudio();
         break;
       case "camera":
         changeCamera();
         break;
       case "sound":
-        storage.data.muted = !storage.data.muted;
+        storage.data.muted = !storage.data.muted && storage.data.volume > 0;
+        if (!storage.data.muted && storage.data.volume === 0) storage.data.volume = 0.5;
         storage.save();
         ui.syncSettings();
-        audio.unlock();
-        audio.setActive(
-          ["racing", "countdown", "replay"].includes(state.value),
-        );
+        audio.sync();
+        if (!storage.data.muted) requestAudio({ preview: true, frequency: 740 });
+        break;
+      case "test-sound":
+        storage.data.muted = false;
+        if (storage.data.volume === 0) storage.data.volume = 0.5;
+        storage.save();
+        ui.syncSettings();
+        requestAudio({ preview: true, frequency: 740 });
         break;
       case "settings":
         pause();
+        audio.setActive(false);
         ui.syncSettings();
         ui.openDialog("settings");
         break;
@@ -289,12 +303,13 @@ try {
         cameras.setMode(1);
         ui.setCamera(1);
         state.set("replay");
+        requestAudio();
         break;
       case "end-replay":
         if (state.value === "replay") {
           cameras.setMode(1);
           state.set("results");
-          weather.setLap(3);
+          weather.setLap(CONFIG.laps);
         }
         break;
       case "replay-speed":
@@ -303,16 +318,29 @@ try {
         break;
     }
   }
-  function updateSettings() {
+  async function requestAudio({ preview = false, frequency } = {}) {
+    if (storage.data.muted || storage.data.volume === 0) return;
+    const ready = await audio.unlock();
+    if (!ready) {
+      ui.toast("오디오를 시작하지 못했습니다. 설정의 ‘소리 확인’을 다시 눌러 주세요.");
+      return;
+    }
+    if (frequency) audio.beep(frequency, preview ? 0.4 : 0.12, preview);
+  }
+  function updateSettings(changed) {
     storage.data.quality = ui.refs["quality-setting"].value;
     storage.data.reducedMotion = ui.refs["motion-setting"].checked;
     storage.data.muted = !ui.refs["sound-setting"].checked;
     storage.data.volume = Number(ui.refs["volume-setting"].value);
+    if (changed === "volume" && storage.data.volume > 0) storage.data.muted = false;
+    if (changed === "sound" && !storage.data.muted && storage.data.volume === 0)
+      storage.data.volume = 0.5;
     storage.save();
     applySettings();
     ui.syncSettings();
-    audio.unlock();
-    audio.setActive(["racing", "countdown", "replay"].includes(state.value));
+    audio.sync();
+    if (changed === "sound" || changed === "volume")
+      requestAudio({ preview: true, frequency: 740 });
   }
   function applySettings() {
     const low = storage.data.quality === "performance";
@@ -355,6 +383,7 @@ try {
     } else if (state.value === "racing") {
       previousFrame = race.snapshot();
       race.update(dt, input.read());
+      if (race.player.impactCount > previousFrame.cars[0].impactCount) audio.impact();
       recorder.record(race);
       weather.setLap(race.player.lap);
       if (race.player.overheated && !overheatWarning) audio.beep(200, 0.25);
@@ -377,7 +406,6 @@ try {
       }
     }
   }
-  const basis = new THREE.Matrix4();
   function render(dt, alpha) {
     frames++;
     fpsTime += dt;
@@ -391,6 +419,10 @@ try {
       garageTime += dt;
       const model = garageModels.get(selected.id);
       model.update(dt, { wheelTest });
+      if (wheelTest && !document.querySelector("dialog[open]")) {
+        audio.setActive(true);
+        audio.update({ speed: 3, boosting: false }, 1);
+      }
       if (model.selectedPart) {
         selectionBox.setFromObject(model.parts[model.selectedPart]);
         selectionBox.visible = true;
@@ -414,21 +446,15 @@ try {
             ? previousFrame.cars[i].distance +
               (car.distance - previousFrame.cars[i].distance) * alpha
             : car.distance;
-        const frame = track.sample(progress);
-        model.root.position
-          .copy(frame.position)
-          .addScaledVector(frame.side, car.lane)
-          .addScaledVector(frame.up, 0.045);
-        basis.makeBasis(frame.side, frame.up, frame.forward);
-        model.root.quaternion.setFromRotationMatrix(basis);
         if (car.finishTime !== null) model.root.visible = false;
         else model.root.visible = true;
         model.update(moving ? dt * (isReplay ? replaySpeed : 1) : 0, {
           speed: moving ? car.speed : 0,
           boost: moving && car.boosting,
+          impact: (car.impactRemaining ?? 0) / CONFIG.impactDuration,
+          impactSide: car.impactSide,
         });
-        for (const wheel of model.wheelPivots)
-          wheel.rotation.x = car.distance / (0.405 * 0.63);
+        placeCarOnTrack(model, track, progress, car.lane);
       }
       if (state.value !== "paused")
         cameras.update(dt, cars[0], snapshot?.time ?? race.time);

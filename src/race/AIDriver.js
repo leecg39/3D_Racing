@@ -1,9 +1,9 @@
-import { clamp } from "../config.js";
+import { CONFIG, clamp } from "../config.js";
 export function strategicInput(car, track, cars = [], skill = 1) {
   const look = track.sample(car.distance + car.speed * 0.55);
   const surface = track.surface(car.distance + 2, car.lane, car.lap);
   const turnRisk =
-    (look.curvature * car.speed * car.speed * (surface.wet ? 1.55 : 1)) /
+    (look.curvature * (car.speed / CONFIG.speedScale) ** 2 * (surface.wet ? 1.55 : 1)) /
     (7.5 * car.spec.grip);
   let targetLane = look.turn * 0.75;
   if (surface.wetZone && car.lap === 2) targetLane = -1.25;

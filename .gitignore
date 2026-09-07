@@ -8,3 +8,4 @@ test-results/
 .env.*
 !.env.example
 docs/evidence/video/
+docs/evidence/**/video/

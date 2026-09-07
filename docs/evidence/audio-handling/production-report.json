@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "url": "http://127.0.0.1:4173/",
+  "browser": "149.0.7827.201",
+  "checks": [
+    "fresh start produces real audio samples without a separate unmute step",
+    "pause silences output and resume recovers a suspended AudioContext",
+    "sound test is audible in paused settings without resuming the race",
+    "zero volume recovery, persistent mute and garage unmute confirmation work",
+    "garage wheel test starts and stops the motor sound",
+    "unsupported audio reports a visible error while racing remains playable"
+  ],
+  "metrics": {
+    "engineRms": 0.03496625515948271,
+    "pausedRms": 0,
+    "previewRms": 0.0514407598906506
+  },
+  "errors": []
+}

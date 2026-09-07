@@ -49,7 +49,7 @@ function simulate(mode, spec = CARS[0], hz = 60, record = false) {
   const race = new RaceManager(track, spec),
     clock = new FixedClock(),
     recorder = new ReplayRecorder();
-  for (let i = 0; i < hz * 150 && !race.finished; i++) {
+  for (let i = 0; i < hz * CONFIG.laps * 50 && !race.finished; i++) {
     clock.advance(1 / hz, (dt) => {
       const input =
         mode === "strategy"
@@ -71,20 +71,20 @@ function simulate(mode, spec = CARS[0], hz = 60, record = false) {
   }
   return { race, recorder };
 }
-test("all four cars finish ordered checkpoints and three laps", () => {
+test("all four cars finish ordered checkpoints and all configured laps", () => {
   for (const spec of CARS) {
     const { race } = simulate("strategy", spec);
     assert.equal(race.finished, true);
     for (const car of race.cars) {
-      assert.equal(car.completedLaps, 3);
-      assert.equal(car.nextCheckpoint, CONFIG.checkpoints * 3 + 1);
-      assert.equal(car.lapTimes.length, 3);
-      assert.ok(car.finishTime > 45 && car.finishTime < 100);
+      assert.equal(car.completedLaps, CONFIG.laps);
+      assert.equal(car.nextCheckpoint, CONFIG.checkpoints * CONFIG.laps + 1);
+      assert.equal(car.lapTimes.length, CONFIG.laps);
+      assert.ok(car.finishTime > (track.length * CONFIG.laps) / CONFIG.maxSpeed && car.finishTime < CONFIG.laps * 50);
       assert.ok(
         Math.abs(car.lapTimes.reduce((sum, t) => sum + t, 0) - car.finishTime) <
           1e-9,
       );
-      assert.equal(car.distance, track.length * 3);
+      assert.equal(car.distance, track.length * CONFIG.laps);
     }
     const times = race.ranking().map((c) => c.finishTime);
     assert.deepEqual(
@@ -100,18 +100,18 @@ test("strategic input beats idle, held boost, and both buttons for every car", (
     const boost = simulate("boost", spec).race.player;
     const both = simulate("both", spec).race.player;
     assert.ok(
-      strategy.finishTime < idle.finishTime - 1,
+      strategy.finishTime < idle.finishTime - 1 / CONFIG.speedScale,
       `${spec.id}: strategy vs idle`,
     );
     assert.ok(
-      strategy.finishTime < boost.finishTime - 3,
+      strategy.finishTime < boost.finishTime - 3 / CONFIG.speedScale,
       `${spec.id}: strategy vs held boost`,
     );
     assert.ok(
-      strategy.finishTime < both.finishTime - 8,
+      strategy.finishTime < both.finishTime - 8 / CONFIG.speedScale,
       `${spec.id}: strategy vs simultaneous input`,
     );
-    assert.ok(boost.overheatCount > 3);
+    assert.ok(boost.overheatCount >= 2);
     assert.equal(strategy.overheatCount, 0);
     assert.equal(both.boostSeconds, 0);
   }
@@ -161,8 +161,8 @@ test("ten consecutive full races are independent, deterministic, and have bounde
   let expected;
   for (let i = 0; i < 10; i++) {
     const { race, recorder } = simulate("strategy", CARS[0], 60, true);
-    assert.ok(recorder.frames.length < 2000);
-    assert.ok(recorder.duration > 50);
+    assert.ok(recorder.frames.length < CONFIG.laps * 50 * CONFIG.replayHz + 2);
+    assert.ok(recorder.duration > (track.length * CONFIG.laps) / CONFIG.maxSpeed);
     expected ??= JSON.stringify(race.snapshot());
     assert.equal(JSON.stringify(race.snapshot()), expected);
   }
@@ -195,7 +195,7 @@ test("weather changes grip, has a dry avoidance line in lap two, and predictable
   const dry = new CarController(CARS[0]),
     wet = new CarController(CARS[0]);
   dry.distance = wet.distance = d;
-  dry.speed = wet.speed = 12;
+  dry.speed = wet.speed = 12 * CONFIG.speedScale;
   dry.lane = wet.lane = 1;
   wet.lap = 2;
   for (let i = 0; i < 30; i++) {

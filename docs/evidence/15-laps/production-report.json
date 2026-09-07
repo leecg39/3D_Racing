@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "laps": 15,
+  "browser": "149.0.7827.201",
+  "errors": [],
+  "checks": [
+    "built garage advertises 15 laps",
+    "old 3-lap records retained but excluded from 15-lap leaderboard",
+    "built HUD shows 1/15"
+  ]
+}

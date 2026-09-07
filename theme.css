@@ -1104,3 +1104,26 @@ body:not([data-state="garage"]) .topbar {
     max-height: 55vh;
   }
 }
+.top-actions .sound-toggle {
+  width: auto;
+  gap: 7px;
+  padding: 0 12px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.audio-status {
+  color: #9cb4cb;
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 12px 0 18px;
+}
+.lap-splits {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  max-height: 125px;
+  overflow-y: auto;
+}
+@media (max-width: 600px) {
+  .top-actions .sound-toggle { padding: 0 7px; gap: 4px; font-size: 10px; }
+}

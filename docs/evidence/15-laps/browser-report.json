@@ -1,0 +1,647 @@
+{
+  "status": "passed",
+  "date": "2026-09-07T12:26:35.503Z",
+  "browser": "149.0.7827.201",
+  "headless": true,
+  "softwareRendering": false,
+  "platform": "darwin 25.6.0 arm64",
+  "viewport": "1440×900",
+  "checks": [
+    "local assets loaded and garage rendered",
+    "all four image-backed vehicle cards change the 3D car",
+    "explosion, part selection, wheel test and reset on car change",
+    "all seven original asset sheets are available in the archive",
+    "countdown pauses without advancing time",
+    "keyboard lane input, boost heat and stabilization cost",
+    "all six cameras can be selected",
+    "blur clears keys and freezes race time, physics and sound",
+    "actual full race: four finishers, 15 laps, weather, one saved result",
+    "recorded replay seeks and changes speed without altering race or records",
+    "ten browser restarts reuse geometry and textures without duplicate state",
+    "performance mode remains playable",
+    "local records and preferences survive reload",
+    "compact layout keeps start action and desktop requirement visible",
+    "no JavaScript errors, missing assets or HTTP failures"
+  ],
+  "errors": [],
+  "failedRequests": [],
+  "samples": [
+    {
+      "time": 3.7833333333333248,
+      "fps": 39,
+      "calls": 214,
+      "triangles": 66252
+    },
+    {
+      "time": 5.733333333333318,
+      "fps": 35,
+      "calls": 292,
+      "triangles": 71720
+    },
+    {
+      "time": 7.699999999999978,
+      "fps": 37,
+      "calls": 293,
+      "triangles": 71744
+    },
+    {
+      "time": 9.750000000000064,
+      "fps": 32,
+      "calls": 292,
+      "triangles": 71720
+    },
+    {
+      "time": 11.766666666666831,
+      "fps": 32,
+      "calls": 296,
+      "triangles": 72840
+    },
+    {
+      "time": 14.350000000000293,
+      "fps": 37,
+      "calls": 296,
+      "triangles": 72840
+    },
+    {
+      "time": 16.383333333333685,
+      "fps": 30,
+      "calls": 297,
+      "triangles": 72864
+    },
+    {
+      "time": 19.150000000000194,
+      "fps": 29,
+      "calls": 297,
+      "triangles": 72864
+    },
+    {
+      "time": 21.15000000000008,
+      "fps": 35,
+      "calls": 296,
+      "triangles": 72840
+    },
+    {
+      "time": 23.116666666666635,
+      "fps": 33,
+      "calls": 301,
+      "triangles": 73960
+    },
+    {
+      "time": 25.74999999999982,
+      "fps": 29,
+      "calls": 303,
+      "triangles": 74008
+    },
+    {
+      "time": 27.799999999999702,
+      "fps": 31,
+      "calls": 301,
+      "triangles": 73960
+    },
+    {
+      "time": 29.83333333333292,
+      "fps": 34,
+      "calls": 302,
+      "triangles": 73984
+    },
+    {
+      "time": 31.866666666666138,
+      "fps": 31,
+      "calls": 301,
+      "triangles": 73960
+    },
+    {
+      "time": 33.86666666666603,
+      "fps": 35,
+      "calls": 304,
+      "triangles": 74032
+    },
+    {
+      "time": 35.866666666665914,
+      "fps": 32,
+      "calls": 302,
+      "triangles": 73984
+    },
+    {
+      "time": 37.9166666666658,
+      "fps": 31,
+      "calls": 302,
+      "triangles": 73984
+    },
+    {
+      "time": 39.949999999999015,
+      "fps": 30,
+      "calls": 301,
+      "triangles": 73960
+    },
+    {
+      "time": 41.96666666666557,
+      "fps": 26,
+      "calls": 303,
+      "triangles": 74008
+    },
+    {
+      "time": 44.083333333332114,
+      "fps": 35,
+      "calls": 302,
+      "triangles": 73984
+    },
+    {
+      "time": 46.11666666666533,
+      "fps": 25,
+      "calls": 303,
+      "triangles": 74008
+    },
+    {
+      "time": 48.13333333333188,
+      "fps": 30,
+      "calls": 302,
+      "triangles": 73984
+    },
+    {
+      "time": 50.116666666665104,
+      "fps": 24,
+      "calls": 302,
+      "triangles": 73984
+    },
+    {
+      "time": 52.16666666666499,
+      "fps": 38,
+      "calls": 301,
+      "triangles": 73960
+    },
+    {
+      "time": 54.13333333333154,
+      "fps": 32,
+      "calls": 303,
+      "triangles": 74008
+    },
+    {
+      "time": 56.11666666666476,
+      "fps": 21,
+      "calls": 301,
+      "triangles": 73960
+    },
+    {
+      "time": 58.19999999999798,
+      "fps": 21,
+      "calls": 303,
+      "triangles": 74008
+    },
+    {
+      "time": 60.199999999997864,
+      "fps": 24,
+      "calls": 302,
+      "triangles": 73984
+    },
+    {
+      "time": 62.14999999999775,
+      "fps": 22,
+      "calls": 302,
+      "triangles": 73984
+    },
+    {
+      "time": 64.16666666666431,
+      "fps": 25,
+      "calls": 301,
+      "triangles": 73960
+    },
+    {
+      "time": 66.2166666666642,
+      "fps": 22,
+      "calls": 302,
+      "triangles": 73984
+    },
+    {
+      "time": 68.26666666666408,
+      "fps": 23,
+      "calls": 301,
+      "triangles": 73960
+    },
+    {
+      "time": 70.2499999999973,
+      "fps": 22,
+      "calls": 302,
+      "triangles": 73984
+    },
+    {
+      "time": 72.26666666666385,
+      "fps": 24,
+      "calls": 301,
+      "triangles": 73960
+    },
+    {
+      "time": 74.26666666666374,
+      "fps": 20,
+      "calls": 302,
+      "triangles": 73984
+    },
+    {
+      "time": 76.28333333333029,
+      "fps": 24,
+      "calls": 302,
+      "triangles": 73984
+    },
+    {
+      "time": 78.26666666666351,
+      "fps": 23,
+      "calls": 301,
+      "triangles": 73960
+    },
+    {
+      "time": 80.28333333333006,
+      "fps": 24,
+      "calls": 301,
+      "triangles": 73960
+    },
+    {
+      "time": 82.26666666666328,
+      "fps": 23,
+      "calls": 302,
+      "triangles": 73984
+    },
+    {
+      "time": 84.28333333332984,
+      "fps": 22,
+      "calls": 303,
+      "triangles": 74008
+    },
+    {
+      "time": 86.29999999999639,
+      "fps": 22,
+      "calls": 302,
+      "triangles": 73984
+    },
+    {
+      "time": 88.29999999999627,
+      "fps": 22,
+      "calls": 301,
+      "triangles": 73960
+    },
+    {
+      "time": 90.34999999999616,
+      "fps": 22,
+      "calls": 302,
+      "triangles": 73984
+    },
+    {
+      "time": 92.29999999999605,
+      "fps": 22,
+      "calls": 303,
+      "triangles": 73984
+    },
+    {
+      "time": 94.34999999999593,
+      "fps": 24,
+      "calls": 303,
+      "triangles": 74008
+    },
+    {
+      "time": 96.33333333332915,
+      "fps": 20,
+      "calls": 303,
+      "triangles": 74008
+    },
+    {
+      "time": 98.3499999999957,
+      "fps": 22,
+      "calls": 301,
+      "triangles": 73960
+    },
+    {
+      "time": 100.38333333332892,
+      "fps": 21,
+      "calls": 302,
+      "triangles": 73984
+    },
+    {
+      "time": 102.34999999999548,
+      "fps": 22,
+      "calls": 302,
+      "triangles": 73984
+    },
+    {
+      "time": 104.36666666666203,
+      "fps": 24,
+      "calls": 301,
+      "triangles": 73960
+    },
+    {
+      "time": 106.36666666666191,
+      "fps": 21,
+      "calls": 302,
+      "triangles": 73984
+    },
+    {
+      "time": 108.3666666666618,
+      "fps": 22,
+      "calls": 303,
+      "triangles": 74008
+    },
+    {
+      "time": 110.41666666666168,
+      "fps": 22,
+      "calls": 302,
+      "triangles": 73984
+    },
+    {
+      "time": 112.43333333332824,
+      "fps": 22,
+      "calls": 301,
+      "triangles": 73960
+    },
+    {
+      "time": 114.43333333332812,
+      "fps": 21,
+      "calls": 302,
+      "triangles": 73984
+    },
+    {
+      "time": 116.44999999999467,
+      "fps": 21,
+      "calls": 301,
+      "triangles": 73960
+    },
+    {
+      "time": 118.46666666666123,
+      "fps": 23,
+      "calls": 302,
+      "triangles": 73984
+    },
+    {
+      "time": 120.46666666666111,
+      "fps": 24,
+      "calls": 304,
+      "triangles": 74032
+    },
+    {
+      "time": 122.48333333332766,
+      "fps": 21,
+      "calls": 301,
+      "triangles": 73960
+    },
+    {
+      "time": 124.48333333332755,
+      "fps": 23,
+      "calls": 205,
+      "triangles": 53516
+    },
+    {
+      "time": 126.51666666666077,
+      "fps": 22,
+      "calls": 156,
+      "triangles": 43234
+    },
+    {
+      "time": 128.53333333332776,
+      "fps": 23,
+      "calls": 156,
+      "triangles": 43234
+    },
+    {
+      "time": 130.53333333332935,
+      "fps": 25,
+      "calls": 156,
+      "triangles": 43234
+    },
+    {
+      "time": 132.54999999999762,
+      "fps": 22,
+      "calls": 157,
+      "triangles": 43234
+    },
+    {
+      "time": 134.51666666666586,
+      "fps": 23,
+      "calls": 156,
+      "triangles": 43234
+    },
+    {
+      "time": 136.5666666666675,
+      "fps": 24,
+      "calls": 156,
+      "triangles": 43234
+    },
+    {
+      "time": 138.58333333333576,
+      "fps": 23,
+      "calls": 156,
+      "triangles": 43234
+    },
+    {
+      "time": 140.56666666667067,
+      "fps": 21,
+      "calls": 156,
+      "triangles": 43234
+    },
+    {
+      "time": 142.58333333333894,
+      "fps": 21,
+      "calls": 156,
+      "triangles": 43234
+    },
+    {
+      "time": 144.6166666666739,
+      "fps": 23,
+      "calls": 157,
+      "triangles": 43234
+    },
+    {
+      "time": 146.61666666667548,
+      "fps": 28,
+      "calls": 156,
+      "triangles": 43234
+    },
+    {
+      "time": 148.61666666667708,
+      "fps": 22,
+      "calls": 156,
+      "triangles": 43234
+    },
+    {
+      "time": 150.6666666666787,
+      "fps": 22,
+      "calls": 156,
+      "triangles": 43234
+    },
+    {
+      "time": 152.68333333334698,
+      "fps": 21,
+      "calls": 156,
+      "triangles": 43234
+    },
+    {
+      "time": 154.68333333334857,
+      "fps": 23,
+      "calls": 156,
+      "triangles": 43234
+    },
+    {
+      "time": 156.70000000001684,
+      "fps": 23,
+      "calls": 156,
+      "triangles": 43234
+    }
+  ],
+  "initialMemory": {
+    "calls": 292,
+    "triangles": 71720,
+    "geometries": 520,
+    "textures": 21
+  },
+  "finalMemory": {
+    "calls": 292,
+    "triangles": 71720,
+    "geometries": 530,
+    "textures": 21
+  },
+  "race": {
+    "time": 157.33333333335068,
+    "cars": [
+      {
+        "id": "zephyr",
+        "distance": 2618.925827524029,
+        "lane": 1.1459323573740419,
+        "speed": 0,
+        "heat": 0,
+        "lap": 15,
+        "completedLaps": 15,
+        "lapTimes": [
+          10.173385721133265,
+          11.003861657280872,
+          10.88798879602269,
+          10.53572516301324,
+          10.446775042855627,
+          10.344444272822791,
+          10.22806336685779,
+          10.327258876463418,
+          10.483891223085521,
+          10.482250648915723,
+          10.484793189857726,
+          10.482175646229308,
+          10.484634831704213,
+          10.482110317627331,
+          10.484593194264079
+        ],
+        "boosting": false,
+        "stabilizing": false,
+        "stability": 92.71560065668996,
+        "overheated": false,
+        "finishTime": 157.3319519481336,
+        "wet": false,
+        "wind": 0,
+        "impactRemaining": 0,
+        "impactCount": 22,
+        "impactSide": 1
+      },
+      {
+        "id": "vortex",
+        "distance": 2618.925827524029,
+        "lane": 0.5003371887595152,
+        "speed": 0,
+        "heat": 6.233333333333332,
+        "lap": 15,
+        "completedLaps": 15,
+        "lapTimes": [
+          8.67571362641712,
+          8.29986028903458,
+          8.488419793442649,
+          8.227807885254407,
+          8.317295324395019,
+          8.140826829038382,
+          8.214629540287753,
+          8.195587499271383,
+          8.216671135872886,
+          8.21667740822889,
+          8.216692484717214,
+          8.225139478736722,
+          8.23166176903662,
+          8.201955079667343,
+          8.241305713322177
+        ],
+        "boosting": true,
+        "stabilizing": false,
+        "stability": 70.7830441263427,
+        "overheated": false,
+        "finishTime": 124.11024385672314,
+        "wet": false,
+        "wind": 0,
+        "impactRemaining": 0,
+        "impactCount": 0,
+        "impactSide": 0
+      },
+      {
+        "id": "bulldog",
+        "distance": 2618.925827524029,
+        "lane": 0.4896374959604065,
+        "speed": 0,
+        "heat": 6.799999999999998,
+        "lap": 15,
+        "completedLaps": 15,
+        "lapTimes": [
+          8.576517791086719,
+          8.313358479015303,
+          8.362488750092634,
+          8.333407053710634,
+          8.387353994670178,
+          8.48035329395993,
+          8.395272108276252,
+          8.44900706204001,
+          8.392163670436858,
+          8.36264295360094,
+          8.333204532200185,
+          8.387347718615416,
+          8.42887010742487,
+          8.380479412094545,
+          8.370823612804585
+        ],
+        "boosting": true,
+        "stabilizing": false,
+        "stability": 74.47941507245108,
+        "overheated": false,
+        "finishTime": 125.95329054002906,
+        "wet": false,
+        "wind": 0,
+        "impactRemaining": 0,
+        "impactCount": 0,
+        "impactSide": 0
+      },
+      {
+        "id": "nova",
+        "distance": 2618.925827524029,
+        "lane": 0.5524208656844538,
+        "speed": 0,
+        "heat": 6.233333333333332,
+        "lap": 15,
+        "completedLaps": 15,
+        "lapTimes": [
+          8.331148236651757,
+          8.183313400388982,
+          8.165716591636855,
+          8.283766578409907,
+          8.233607657485216,
+          8.199408081746505,
+          8.283465730287851,
+          8.283539681883177,
+          8.233624610106716,
+          8.265235728936531,
+          8.16759268778415,
+          8.283536682319735,
+          8.233616367017902,
+          8.265224939889663,
+          8.167566171186834
+        ],
+        "boosting": true,
+        "stabilizing": false,
+        "stability": 78.9790980993341,
+        "overheated": false,
+        "finishTime": 123.58036314573178,
+        "wet": false,
+        "wind": 0,
+        "impactRemaining": 0,
+        "impactCount": 0,
+        "impactSide": 0
+      }
+    ]
+  }
+}

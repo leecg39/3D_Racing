@@ -3,8 +3,9 @@ import assert from "node:assert/strict";
 import { mkdir, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
+import { CONFIG } from "../src/config.js";
 
-const evidence = path.resolve("docs/evidence");
+const evidence = path.resolve(process.env.EVIDENCE_DIR || "docs/evidence");
 await mkdir(evidence, { recursive: true });
 const browser = await chromium.launch({
   channel: "chrome",
@@ -157,7 +158,7 @@ try {
   const wallStart = Date.now();
   while (
     (await read()).state !== "results" &&
-    Date.now() - wallStart < 145000
+    Date.now() - wallStart < CONFIG.laps * 50000
   ) {
     const current = await read();
     samples.push({
@@ -184,14 +185,14 @@ try {
   resultSnapshot = await read();
   assert.ok(
     resultSnapshot.race.cars.every(
-      (c) => c.completedLaps === 3 && Number.isFinite(c.finishTime),
+      (c) => c.completedLaps === CONFIG.laps && Number.isFinite(c.finishTime),
     ),
   );
   assert.equal(resultSnapshot.records.length, 1);
   assert.ok(capturedWet && capturedStorm);
   await screenshot("08-results");
   check(
-    "actual full race: four finishers, three laps, weather, one saved result",
+    `actual full race: four finishers, ${CONFIG.laps} laps, weather, one saved result`,
   );
   await page.locator('[data-action="replay"]').click();
   await state("replay");

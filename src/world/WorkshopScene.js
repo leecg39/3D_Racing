@@ -231,7 +231,7 @@ export class WorkshopScene {
     sun.shadow.camera.bottom = -35;
     sun.shadow.camera.near = 0.5;
     sun.shadow.camera.far = 100;
-    sun.shadow.normalBias = 0.06;
+    sun.shadow.normalBias = 0.012;
     sun.shadow.bias = -0.0001;
     scene.add(sun);
     scene.userData.sun = sun;

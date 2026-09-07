@@ -9,7 +9,7 @@ for (const car of CARS) {
   const row = { car: car.id };
   for (const mode of ["none", "boost", "both", "strategy"]) {
     const race = new RaceManager(track, car);
-    while (!race.finished && race.time < 150)
+    while (!race.finished && race.time < CONFIG.laps * 50)
       race.update(
         CONFIG.step,
         mode === "strategy"
@@ -28,7 +28,7 @@ await mkdir("docs/evidence", { recursive: true });
 await writeFile(
   "docs/evidence/balance-report.json",
   JSON.stringify(
-    { trackLength: track.length, step: CONFIG.step, rows },
+    { laps: CONFIG.laps, trackLength: track.length, step: CONFIG.step, rows },
     null,
     2,
   ) + "\n",
