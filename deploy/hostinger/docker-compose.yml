@@ -1,0 +1,30 @@
+name: racing3d
+
+services:
+  web:
+    image: 3dracing:${APP_REVISION:?Set APP_REVISION to the deployed git commit}
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp:size=32m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 128m
+    cpus: 0.50
+    pids_limit: 64
+    expose:
+      - "8080"
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.racing3d.rule: "Host(`3dracing.soverin.cloud`)"
+      traefik.http.routers.racing3d.entrypoints: websecure
+      traefik.http.routers.racing3d.tls: "true"
+      traefik.http.routers.racing3d.tls.certresolver: letsencrypt
+      traefik.http.services.racing3d.loadbalancer.server.port: "8080"
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"

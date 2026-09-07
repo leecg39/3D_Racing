@@ -1,0 +1,7 @@
+**
+!Dockerfile
+!deploy/
+!deploy/hostinger/
+!deploy/hostinger/nginx.conf
+!dist/
+!dist/**

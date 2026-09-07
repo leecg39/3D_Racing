@@ -1,0 +1,46 @@
+{
+  "url": "https://3dracing.soverin.cloud/",
+  "sourceCommit": "843bc1a106af05866605883d36b3dbc420e3ba13",
+  "server": "srv1655088.hstgr.cloud",
+  "originIPv4": "72.61.116.250",
+  "container": "racing3d-web-1",
+  "image": "3dracing:843bc1a",
+  "index": {
+    "status": 200,
+    "contentType": "text/html",
+    "matchesBuild": true
+  },
+  "tlsVerified": true,
+  "certificateSubject": [
+    [
+      [
+        "commonName",
+        "3dracing.soverin.cloud"
+      ]
+    ]
+  ],
+  "certificateExpires": "Dec  6 14:20:27 2026 GMT",
+  "unitTests": 33,
+  "originAssetsChecked": 35,
+  "browserChecks": [
+    "garage loads",
+    "Airport Lounge playing status",
+    "race runs with updated circular speedometer",
+    "Escape pauses race",
+    "Go Cart selected during race",
+    "no browser warnings or errors"
+  ],
+  "status": "passed",
+  "verifiedAt": "2026-09-07T15:20:30.460085+00:00",
+  "dns": {
+    "type": "A",
+    "name": "3dracing",
+    "target": "72.61.116.250",
+    "proxied": true
+  },
+  "cloudflareChecks": {
+    "httpsIndexStatus": 200,
+    "mp3RangeStatus": 206
+  },
+  "originImageDigest": "sha256:237f7f61f4e6548ed2b755f9e79725a27394af32392467895dd4c9824c8ee7d0"
+}
