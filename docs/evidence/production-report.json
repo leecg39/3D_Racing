@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "browser": "149.0.7827.201",
+  "errors": [],
+  "failedRequests": [],
+  "externalRequests": [],
+  "checks": [
+    "built game loads",
+    "local fonts and seven original images",
+    "no development diagnostics",
+    "keyboard boost changes heat",
+    "pause works",
+    "storage denied",
+    "WebGL denied",
+    "missing image failure"
+  ]
+}

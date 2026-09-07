@@ -1,0 +1,98 @@
+{
+  "trackLength": 174.5950551682686,
+  "step": 0.016666666666666666,
+  "rows": [
+    {
+      "car": "zephyr",
+      "none": {
+        "seconds": 78.85075954128007,
+        "overheats": 0,
+        "position": 4
+      },
+      "boost": {
+        "seconds": 86.6513413484647,
+        "overheats": 13,
+        "position": 4
+      },
+      "both": {
+        "seconds": 100.10430669189967,
+        "overheats": 0,
+        "position": 4
+      },
+      "strategy": {
+        "seconds": 65.84271348319102,
+        "overheats": 0,
+        "position": 3
+      }
+    },
+    {
+      "car": "vortex",
+      "none": {
+        "seconds": 73.18644972885224,
+        "overheats": 0,
+        "position": 4
+      },
+      "boost": {
+        "seconds": 80.23927899239857,
+        "overheats": 12,
+        "position": 4
+      },
+      "both": {
+        "seconds": 91.07303280688812,
+        "overheats": 0,
+        "position": 4
+      },
+      "strategy": {
+        "seconds": 61.94083857881928,
+        "overheats": 0,
+        "position": 1
+      }
+    },
+    {
+      "car": "bulldog",
+      "none": {
+        "seconds": 81.97164503440207,
+        "overheats": 0,
+        "position": 4
+      },
+      "boost": {
+        "seconds": 86.91264046518843,
+        "overheats": 15,
+        "position": 4
+      },
+      "both": {
+        "seconds": 105.33470844321289,
+        "overheats": 0,
+        "position": 4
+      },
+      "strategy": {
+        "seconds": 65.95870948009022,
+        "overheats": 0,
+        "position": 3
+      }
+    },
+    {
+      "car": "nova",
+      "none": {
+        "seconds": 76.76176091159583,
+        "overheats": 0,
+        "position": 4
+      },
+      "boost": {
+        "seconds": 85.50322231780777,
+        "overheats": 12,
+        "position": 4
+      },
+      "both": {
+        "seconds": 98.1576096186121,
+        "overheats": 0,
+        "position": 4
+      },
+      "strategy": {
+        "seconds": 63.11470674030875,
+        "overheats": 0,
+        "position": 2
+      }
+    }
+  ]
+}

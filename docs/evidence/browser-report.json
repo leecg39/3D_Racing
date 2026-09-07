@@ -1,0 +1,353 @@
+{
+  "status": "passed",
+  "date": "2026-09-07T11:13:11.103Z",
+  "browser": "149.0.7827.201",
+  "headless": true,
+  "softwareRendering": false,
+  "platform": "darwin 25.6.0 arm64",
+  "viewport": "1440×900",
+  "checks": [
+    "local assets loaded and garage rendered",
+    "all four image-backed vehicle cards change the 3D car",
+    "explosion, part selection, wheel test and reset on car change",
+    "all seven original asset sheets are available in the archive",
+    "countdown pauses without advancing time",
+    "keyboard lane input, boost heat and stabilization cost",
+    "all six cameras can be selected",
+    "blur clears keys and freezes race time, physics and sound",
+    "actual full race: four finishers, three laps, weather, one saved result",
+    "recorded replay seeks and changes speed without altering race or records",
+    "ten browser restarts reuse geometry and textures without duplicate state",
+    "performance mode remains playable",
+    "local records and preferences survive reload",
+    "compact layout keeps start action and desktop requirement visible",
+    "no JavaScript errors, missing assets or HTTP failures"
+  ],
+  "errors": [],
+  "failedRequests": [],
+  "samples": [
+    {
+      "time": 3.433333333333326,
+      "fps": 61,
+      "calls": 107,
+      "triangles": 48704
+    },
+    {
+      "time": 5.416666666666653,
+      "fps": 60,
+      "calls": 288,
+      "triangles": 71304
+    },
+    {
+      "time": 7.416666666666646,
+      "fps": 60,
+      "calls": 290,
+      "triangles": 71352
+    },
+    {
+      "time": 9.433333333333382,
+      "fps": 60,
+      "calls": 289,
+      "triangles": 71328
+    },
+    {
+      "time": 11.433333333333481,
+      "fps": 60,
+      "calls": 290,
+      "triangles": 71352
+    },
+    {
+      "time": 13.450000000000248,
+      "fps": 60,
+      "calls": 288,
+      "triangles": 71304
+    },
+    {
+      "time": 15.466666666667015,
+      "fps": 60,
+      "calls": 288,
+      "triangles": 71304
+    },
+    {
+      "time": 17.466666666666956,
+      "fps": 60,
+      "calls": 289,
+      "triangles": 71328
+    },
+    {
+      "time": 19.700000000000163,
+      "fps": 60,
+      "calls": 288,
+      "triangles": 71304
+    },
+    {
+      "time": 21.716666666666715,
+      "fps": 60,
+      "calls": 290,
+      "triangles": 71352
+    },
+    {
+      "time": 23.7166666666666,
+      "fps": 60,
+      "calls": 290,
+      "triangles": 71352
+    },
+    {
+      "time": 25.716666666666487,
+      "fps": 60,
+      "calls": 289,
+      "triangles": 71328
+    },
+    {
+      "time": 27.73333333333304,
+      "fps": 60,
+      "calls": 294,
+      "triangles": 72472
+    },
+    {
+      "time": 29.94999999999958,
+      "fps": 60,
+      "calls": 293,
+      "triangles": 72448
+    },
+    {
+      "time": 31.966666666666132,
+      "fps": 60,
+      "calls": 293,
+      "triangles": 72448
+    },
+    {
+      "time": 33.96666666666602,
+      "fps": 60,
+      "calls": 294,
+      "triangles": 72472
+    },
+    {
+      "time": 35.983333333332574,
+      "fps": 60,
+      "calls": 292,
+      "triangles": 72424
+    },
+    {
+      "time": 37.98333333333246,
+      "fps": 60,
+      "calls": 293,
+      "triangles": 72448
+    },
+    {
+      "time": 39.98333333333235,
+      "fps": 60,
+      "calls": 292,
+      "triangles": 72424
+    },
+    {
+      "time": 41.9999999999989,
+      "fps": 60,
+      "calls": 293,
+      "triangles": 72448
+    },
+    {
+      "time": 43.999999999998785,
+      "fps": 60,
+      "calls": 293,
+      "triangles": 72448
+    },
+    {
+      "time": 45.99999999999867,
+      "fps": 60,
+      "calls": 294,
+      "triangles": 72472
+    },
+    {
+      "time": 48.01666666666522,
+      "fps": 60,
+      "calls": 292,
+      "triangles": 72424
+    },
+    {
+      "time": 50.01666666666511,
+      "fps": 60,
+      "calls": 294,
+      "triangles": 72472
+    },
+    {
+      "time": 52.03333333333166,
+      "fps": 60,
+      "calls": 293,
+      "triangles": 72448
+    },
+    {
+      "time": 54.03333333333155,
+      "fps": 60,
+      "calls": 297,
+      "triangles": 73544
+    },
+    {
+      "time": 56.266666666664754,
+      "fps": 60,
+      "calls": 299,
+      "triangles": 73592
+    },
+    {
+      "time": 58.283333333331306,
+      "fps": 60,
+      "calls": 298,
+      "triangles": 73568
+    },
+    {
+      "time": 60.28333333333119,
+      "fps": 60,
+      "calls": 297,
+      "triangles": 73544
+    },
+    {
+      "time": 62.28333333333108,
+      "fps": 60,
+      "calls": 297,
+      "triangles": 73544
+    },
+    {
+      "time": 64.29999999999764,
+      "fps": 60,
+      "calls": 250,
+      "triangles": 63438
+    },
+    {
+      "time": 66.29999999999752,
+      "fps": 60,
+      "calls": 203,
+      "triangles": 53308
+    },
+    {
+      "time": 68.31666666666408,
+      "fps": 60,
+      "calls": 155,
+      "triangles": 43130
+    },
+    {
+      "time": 70.31666666666396,
+      "fps": 60,
+      "calls": 155,
+      "triangles": 43130
+    },
+    {
+      "time": 72.33333333333051,
+      "fps": 60,
+      "calls": 155,
+      "triangles": 43130
+    },
+    {
+      "time": 74.3333333333304,
+      "fps": 60,
+      "calls": 155,
+      "triangles": 43130
+    },
+    {
+      "time": 76.34999999999695,
+      "fps": 60,
+      "calls": 155,
+      "triangles": 43130
+    }
+  ],
+  "initialMemory": {
+    "calls": 288,
+    "triangles": 71304,
+    "geometries": 512,
+    "textures": 20
+  },
+  "finalMemory": {
+    "calls": 288,
+    "triangles": 71304,
+    "geometries": 521,
+    "textures": 20
+  },
+  "race": {
+    "time": 78.01666666666353,
+    "cars": [
+      {
+        "id": "zephyr",
+        "distance": 523.7851655048058,
+        "lane": 0.6464531864354409,
+        "speed": 0,
+        "heat": 0,
+        "lap": 3,
+        "completedLaps": 3,
+        "lapTimes": [
+          25.79713082983715,
+          26.27136730484326,
+          25.93216314074411
+        ],
+        "boosting": false,
+        "stabilizing": false,
+        "stability": 85.0049710222653,
+        "overheated": false,
+        "finishTime": 78.00066127542452,
+        "wet": false,
+        "wind": 0
+      },
+      {
+        "id": "vortex",
+        "distance": 523.7851655048058,
+        "lane": 0.7499866780092088,
+        "speed": 0,
+        "heat": 0,
+        "lap": 3,
+        "completedLaps": 3,
+        "lapTimes": [
+          20.987883950966758,
+          20.99553309405263,
+          21.104479695544853
+        ],
+        "boosting": false,
+        "stabilizing": false,
+        "stability": 83.16841299063636,
+        "overheated": false,
+        "finishTime": 63.08789674056424,
+        "wet": false,
+        "wind": 0
+      },
+      {
+        "id": "bulldog",
+        "distance": 523.7851655048058,
+        "lane": 0.7501044985573617,
+        "speed": 0,
+        "heat": 0,
+        "lap": 3,
+        "completedLaps": 3,
+        "lapTimes": [
+          22.812761366307576,
+          22.142426126746415,
+          22.098837313499367
+        ],
+        "boosting": false,
+        "stabilizing": false,
+        "stability": 91.23088259933292,
+        "overheated": false,
+        "finishTime": 67.05402480655336,
+        "wet": false,
+        "wind": 0
+      },
+      {
+        "id": "nova",
+        "distance": 523.7851655048058,
+        "lane": 0.750211552495274,
+        "speed": 0,
+        "heat": 0,
+        "lap": 3,
+        "completedLaps": 3,
+        "lapTimes": [
+          21.904234097474305,
+          21.532773075725817,
+          21.52426290171156
+        ],
+        "boosting": false,
+        "stabilizing": false,
+        "stability": 90.57367970117045,
+        "overheated": false,
+        "finishTime": 64.96127007491168,
+        "wet": false,
+        "wind": 0
+      }
+    ]
+  }
+}

@@ -1,0 +1,180 @@
+{
+  "status": "failed",
+  "error": "page.waitForTimeout: Target page, context or browser has been closed\n    at /Users/user01/Desktop/3DRacing/tests/browser.mjs:181:16",
+  "checks": [
+    "local assets loaded and garage rendered",
+    "all four image-backed vehicle cards change the 3D car",
+    "explosion, part selection, wheel test and reset on car change",
+    "all seven original asset sheets are available in the archive",
+    "countdown pauses without advancing time",
+    "keyboard lane input, boost heat and stabilization cost",
+    "all six cameras can be selected",
+    "blur clears keys and freezes race time, physics and sound"
+  ],
+  "errors": [],
+  "failedRequests": [],
+  "samples": [
+    {
+      "time": 3.3666666666666596,
+      "fps": 56,
+      "calls": 99,
+      "triangles": 42236
+    },
+    {
+      "time": 5.349999999999986,
+      "fps": 60,
+      "calls": 288,
+      "triangles": 71304
+    },
+    {
+      "time": 7.349999999999979,
+      "fps": 60,
+      "calls": 290,
+      "triangles": 71352
+    },
+    {
+      "time": 9.366666666666712,
+      "fps": 60,
+      "calls": 288,
+      "triangles": 71304
+    },
+    {
+      "time": 11.366666666666811,
+      "fps": 60,
+      "calls": 289,
+      "triangles": 71328
+    },
+    {
+      "time": 13.36666666666691,
+      "fps": 60,
+      "calls": 289,
+      "triangles": 71328
+    },
+    {
+      "time": 15.383333333333677,
+      "fps": 60,
+      "calls": 288,
+      "triangles": 71304
+    },
+    {
+      "time": 17.383333333333628,
+      "fps": 60,
+      "calls": 288,
+      "triangles": 71304
+    },
+    {
+      "time": 19.583333333333503,
+      "fps": 60,
+      "calls": 289,
+      "triangles": 71328
+    },
+    {
+      "time": 21.58333333333339,
+      "fps": 60,
+      "calls": 290,
+      "triangles": 71352
+    },
+    {
+      "time": 23.59999999999994,
+      "fps": 60,
+      "calls": 291,
+      "triangles": 71376
+    },
+    {
+      "time": 25.599999999999827,
+      "fps": 60,
+      "calls": 290,
+      "triangles": 71352
+    },
+    {
+      "time": 27.61666666666638,
+      "fps": 60,
+      "calls": 294,
+      "triangles": 72472
+    },
+    {
+      "time": 29.79999999999959,
+      "fps": 60,
+      "calls": 293,
+      "triangles": 72448
+    },
+    {
+      "time": 31.81666666666614,
+      "fps": 60,
+      "calls": 294,
+      "triangles": 72472
+    },
+    {
+      "time": 33.81666666666603,
+      "fps": 60,
+      "calls": 294,
+      "triangles": 72472
+    },
+    {
+      "time": 35.81666666666592,
+      "fps": 60,
+      "calls": 292,
+      "triangles": 72424
+    },
+    {
+      "time": 37.83333333333247,
+      "fps": 60,
+      "calls": 293,
+      "triangles": 72448
+    },
+    {
+      "time": 39.833333333332355,
+      "fps": 60,
+      "calls": 293,
+      "triangles": 72448
+    },
+    {
+      "time": 41.84999999999891,
+      "fps": 60,
+      "calls": 293,
+      "triangles": 72448
+    },
+    {
+      "time": 43.84999999999879,
+      "fps": 60,
+      "calls": 295,
+      "triangles": 72496
+    },
+    {
+      "time": 45.866666666665346,
+      "fps": 60,
+      "calls": 294,
+      "triangles": 72472
+    },
+    {
+      "time": 47.86666666666523,
+      "fps": 60,
+      "calls": 292,
+      "triangles": 72424
+    },
+    {
+      "time": 49.86666666666512,
+      "fps": 60,
+      "calls": 294,
+      "triangles": 72472
+    },
+    {
+      "time": 51.88333333333167,
+      "fps": 60,
+      "calls": 294,
+      "triangles": 72472
+    },
+    {
+      "time": 53.88333333333156,
+      "fps": 60,
+      "calls": 298,
+      "triangles": 73568
+    },
+    {
+      "time": 56.066666666664766,
+      "fps": 60,
+      "calls": 299,
+      "triangles": 73592
+    }
+  ]
+}
