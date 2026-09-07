@@ -4,9 +4,9 @@
 - 서버: `srv1655088.hstgr.cloud` (`72.61.116.250`)
 - 서버 배포 폴더: `/docker/3dracing`
 - Compose 프로젝트 / 컨테이너: `racing3d` / `racing3d-web-1`
-- 배포한 게임 소스: `843bc1a106af05866605883d36b3dbc420e3ba13`
-- 이미지: `3dracing:843bc1a`
-- 현재 릴리스 파일: `/docker/3dracing/releases/843bc1a`
+- 이미지 태그: 서버 `/docker/3dracing/.env`의 `APP_REVISION`
+- 릴리스 파일: `/docker/3dracing/releases/<이미지 태그>`
+- 최초 배포한 게임 소스: `843bc1a106af05866605883d36b3dbc420e3ba13`
 
 ## 제공 방식
 
@@ -27,7 +27,7 @@ Cloudflare의 `3dracing` A 레코드는 `72.61.116.250`을 가리키며 프록�
 - Cloudflare 경유 HTTPS: HTML 200, MP3 Range 206
 - 브라우저: 차고, 레이스, 원형 속도계, 일시정지, 배경음 전환 확인
 
-세부 결과는 `asset-check.json`과 `deployment-report.json`에 기록한다.
+최초 배포의 세부 결과는 `asset-check.json`과 `deployment-report.json`에 기록한다. 링크 미리보기 이미지와 메타데이터는 `docs/evidence/social-thumbnail/README.md`에서 확인한다.
 
 ## 운영 명령
 
@@ -41,4 +41,4 @@ docker compose up -d --wait --wait-timeout 60
 
 새 배포는 로컬에서 테스트·빌드 후 `dist/`, `Dockerfile`, `.dockerignore`, `deploy/hostinger/nginx.conf`를 새 릴리스 폴더로 전송한다. 서버에서 `docker build --build-arg APP_REVISION=<전체 커밋> -t 3dracing:<커밋> .`로 이미지를 만들고, `/docker/3dracing/.env`의 `APP_REVISION`을 이미지 태그와 맞춘 뒤 Compose를 실행한다. Compose 설정을 변경했다면 `docker-compose.yml`도 배포 폴더에 함께 갱신한다.
 
-기존 이미지와 릴리스 폴더를 보존하면 `.env`의 `APP_REVISION`을 이전 태그로 되돌리고 Compose를 실행해 복구할 수 있다. 최초 배포이므로 현재 기록에는 이전 운영 버전이 없다.
+기존 이미지와 릴리스 폴더를 보존하면 `.env`의 `APP_REVISION`을 이전 태그로 되돌리고 Compose를 실행해 복구할 수 있다. 최초 이미지 `3dracing:843bc1a`도 서버에 보존한다.
